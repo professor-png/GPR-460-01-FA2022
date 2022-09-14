@@ -10,6 +10,9 @@ namespace gpr460
 
     class System
     {
+    private:
+        HANDLE errorFile;
+
     public:
         ~System();
 
