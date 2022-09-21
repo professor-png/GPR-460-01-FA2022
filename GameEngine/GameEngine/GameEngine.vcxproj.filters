@@ -21,9 +21,24 @@
     <ClCompile Include="System.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="System_Win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="System_Emscripten.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System_Emscripten.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System_Common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="System_Win32.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
