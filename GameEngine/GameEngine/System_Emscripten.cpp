@@ -1,11 +1,5 @@
 #include "System_Emscripten.h"
-/*
-Changesthis stuff 
 
-
-
-
-*/
 namespace gpr460
 {
 	void System::ShutDown()
@@ -16,7 +10,8 @@ namespace gpr460
 
 	void System::ErrorMessage(const string& msg)
 	{
-		MessageBox(NULL, msg.c_str(), L"Error", MB_OK | MB_ICONERROR);
+		//MessageBox(NULL, msg.c_str(), L"Error", MB_OK | MB_ICONERROR);
+
 	}
 
 	void System::LogToErrorFile(const string& msg)
