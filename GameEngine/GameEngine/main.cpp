@@ -1,11 +1,3 @@
-// THIS IS WINDOWS-ONLY
-#include <stdlib.h>
-#include <crtdbg.h>
-#include <iostream>
-#include <SDL2/SDL.h>
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
-
 // Add your System.h include file here
 #include "System.h"
 
@@ -87,12 +79,19 @@ void frameStep(void* arg)
 
         if (event.type == SDL_KEYDOWN)
         {
-            std::cout << "Key pressed!\n";
+            //std::cout << "Key pressed!\n";
+            printf("Key pressed!\n");
             if (event.key.keysym.sym == SDLK_k)
             {
-                std::cout << "K pressed!\n";
+                //std::cout << "K pressed!\n";
+                printf("K pressed!\n");
+                #ifdef _WIN32
                 engine->system->ErrorMessage(L"Do not press K!!!");
                 engine->system->LogToErrorFile(L"Error: User pressed 'k'");
+                #else
+                engine->system->ErrorMessage("Do not press K!!!");
+                engine->system->LogToErrorFile("Error: User pressed 'k'");
+                #endif
             }
             if (event.key.keysym.sym == SDLK_ESCAPE)
             {

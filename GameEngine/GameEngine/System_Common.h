@@ -2,8 +2,13 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRTDBG_MAP_ALLOC
-#include <Windows.h>
 #include <string>
+
+//include windows for error file handle
+#ifdef _WIN32
+#include <Windows.h>
+#endif
+
 
 #ifdef _DEBUG
 #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
@@ -25,7 +30,9 @@ namespace gpr460
     class System
     {
     private:
+#ifdef _WIN32
         HANDLE errorFile;
+#endif
 
     public:
         ~System();
