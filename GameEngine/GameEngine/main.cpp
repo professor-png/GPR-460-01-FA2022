@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     gpr460::System system;
     system.Init();
 
-    int* leak = DBG_NEW int[4096];
+    //int* leak = DBG_NEW int[4096];
 
     SDL_Init(SDL_INIT_VIDEO);
 
@@ -85,13 +85,8 @@ void frameStep(void* arg)
             {
                 //std::cout << "K pressed!\n";
                 printf("K pressed!\n");
-                #ifdef _WIN32
-                engine->system->ErrorMessage(L"Do not press K!!!");
-                engine->system->LogToErrorFile(L"Error: User pressed 'k'");
-                #else
-                engine->system->ErrorMessage("Do not press K!!!");
-                engine->system->LogToErrorFile("Error: User pressed 'k'");
-                #endif
+                engine->system->ErrorMessage(gpr460::K_MESSAGE);
+                engine->system->LogToErrorFile(gpr460::K_ERROR);
             }
             if (event.key.keysym.sym == SDLK_ESCAPE)
             {
