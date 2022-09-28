@@ -1,10 +1,8 @@
 #pragma once
 
-#include "System_common.h"
+#include "System_Common.h"
 
-//#ifdef __EMSCRIPTION__
-//#include <emscription.h>
-//#endif
+#include <emscripten.h>
 
 #include <SDL2/SDL.h>
 #include <stdio.h>

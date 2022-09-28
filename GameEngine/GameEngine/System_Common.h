@@ -23,11 +23,11 @@ namespace gpr460
 #ifdef _WIN32
     typedef std::wstring string;
     const gpr460::string K_MESSAGE = L"Do not press K!!!";
-    const gpr460::string K_ERROR = L"Error: User pressed 'k'";
+    const gpr460::string K_ERROR = L"Error: User pressed k";
 #else
     typedef std::string string;
     const gpr460::string K_MESSAGE = "Do not press K!!!";
-    const gpr460::string K_ERROR = "Error: User pressed 'k'";
+    const gpr460::string K_ERROR = "Error: User pressed k";
 #endif
     
 
@@ -35,7 +35,7 @@ namespace gpr460
     {
     private:
 #ifdef _WIN32
-        HANDLE errorFile;
+        HANDLE errorFile = NULL;
 #endif
 
     public:

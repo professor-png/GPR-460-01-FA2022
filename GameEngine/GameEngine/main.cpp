@@ -11,6 +11,7 @@ struct EngineState
 };
 
 void runMainLoop(EngineState* engine);
+void handleEvents(void* engine);
 void frameStep(void* arg);
 Uint32 GetTicks();
 
@@ -50,13 +51,23 @@ int main(int argc, char* argv[])
 
 void runMainLoop(EngineState* engine)
 {
+#ifdef __EMSCRIPTEN__
+    emscripten_set_main_loop_arg(handleEvents, engine, 0, true);
+#else
     while (!engine->quit)
     {
-        Uint32 now = GetTicks();
-        if (now - engine->frameStart >= 16)
-        {
-            frameStep(engine);
-        }
+        handleEvents(engine);
+    }
+#endif
+    
+}
+
+void handleEvents(void* engine)
+{
+    Uint32 now = GetTicks();
+    if (now - ((EngineState*)engine)->frameStart >= 16)
+    {
+        frameStep(engine);
     }
 }
 

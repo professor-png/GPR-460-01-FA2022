@@ -131,14 +131,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="System.cpp" />
-    <ClCompile Include="System_Emscripten.cpp" />
     <ClCompile Include="System_Win32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="System.h" />
     <ClInclude Include="System_Common.h" />
-    <ClInclude Include="System_Emscripten.h" />
     <ClInclude Include="System_Win32.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

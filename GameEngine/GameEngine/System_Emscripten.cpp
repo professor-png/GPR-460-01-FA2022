@@ -1,6 +1,6 @@
 #include "System_Emscripten.h"
 
-#ifdef __EMSCRIPTION__
+
 namespace gpr460
 {
 	void System::Init()
@@ -15,12 +15,12 @@ namespace gpr460
 
 	void System::ErrorMessage(const string& msg)
 	{
-		alert("Alert!");
+		string message = "alert('" + msg + "')\n";
+		emscripten_run_script(message.c_str());
 	}
 
 	void System::LogToErrorFile(const string& msg)
 	{
-		printf(msg);
+		printf("%s", msg.c_str());
 	}
 }
-#endif

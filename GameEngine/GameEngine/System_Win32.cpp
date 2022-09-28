@@ -20,7 +20,8 @@ namespace gpr460
 	void System::ShutDown()
 	{
 		//close ErrorFile
-		CloseHandle(errorFile);
+		if (errorFile != NULL)
+			CloseHandle(errorFile);
 	}
 
 	void System::ErrorMessage(const string& msg)
