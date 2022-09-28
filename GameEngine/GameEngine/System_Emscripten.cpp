@@ -16,7 +16,6 @@ namespace gpr460
 	void System::ErrorMessage(const string& msg)
 	{
 		alert("Alert!");
-
 	}
 
 	void System::LogToErrorFile(const string& msg)
