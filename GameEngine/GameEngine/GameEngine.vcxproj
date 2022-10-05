@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionColorChanger.h" />
+    <ClInclude Include="EngineState.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RectangleCollider.h" />

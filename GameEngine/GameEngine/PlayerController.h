@@ -1,9 +1,14 @@
 #pragma once
 
-#include "System.h"
+#include "EngineState.h"
+
+class GameObject;
 
 class PlayerController
 {
+private:
+
+
 public:
 	void Update(EngineState* engine);
 	GameObject* owner;

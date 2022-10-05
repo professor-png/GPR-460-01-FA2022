@@ -1,5 +1,6 @@
 // Add your System.h include file here
 #include "System.h"
+#include "EngineState.h"
 
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
@@ -79,22 +80,22 @@ void frameStep(void* arg)
             engine->quit = true;
         }
 
-        if (event.type == SDL_KEYDOWN)
-        {
-            //std::cout << "Key pressed!\n";
-            printf("Key pressed!\n");
-            if (event.key.keysym.sym == SDLK_k)
-            {
-                //std::cout << "K pressed!\n";
-                printf("K pressed!\n");
-                engine->system->ErrorMessage(gpr460::K_MESSAGE);
-                engine->system->LogToErrorFile(gpr460::K_ERROR);
-            }
-            if (event.key.keysym.sym == SDLK_ESCAPE)
-            {
-                engine->quit = true;
-            }
-        }
+        //if (event.type == SDL_KEYDOWN)
+        //{
+        //    //std::cout << "Key pressed!\n";
+        //    printf("Key pressed!\n");
+        //    if (event.key.keysym.sym == SDLK_k)
+        //    {
+        //        //std::cout << "K pressed!\n";
+        //        printf("K pressed!\n");
+        //        engine->system->ErrorMessage(gpr460::K_MESSAGE);
+        //        engine->system->LogToErrorFile(gpr460::K_ERROR);
+        //    }
+        //    if (event.key.keysym.sym == SDLK_ESCAPE)
+        //    {
+        //        engine->quit = true;
+        //    }
+        //}
     }
 
     int x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
@@ -106,11 +107,20 @@ void frameStep(void* arg)
         50
     };
 
+    SDL_Rect b = {
+        x,
+        200,
+        50,
+        50
+    };
+
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 
     SDL_RenderClear(engine->renderer);
     SDL_SetRenderDrawColor(engine->renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderFillRect(engine->renderer, &r);
+    SDL_SetRenderDrawColor(engine->renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderFillRect(engine->renderer, &b);
     SDL_RenderPresent(engine->renderer);
 }
 

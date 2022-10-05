@@ -1,5 +1,4 @@
 #pragma once
-#include "System.h"
 
 #include "Transform.h"
 #include "RectangleCollider.h"
@@ -15,12 +14,14 @@ public:
 
     RectangleRenderer* CreateRenderer(float width, float height, int r, int g, int b, int a);
     RectangleCollider* CreateCollider();
-    PlayerController* CreatePlayerController(...);
-    CollisionColorChanger* CreateColliderColorChanger(...);
+    PlayerController* CreatePlayerController();
+    CollisionColorChanger* CreateColliderColorChanger();
 
     Transform* GetTransform();
     RectangleRenderer* GetRenderer();
     RectangleCollider* GetCollider();
+
+    void Update(EngineState* engine);
 
 protected:
     Transform transform;

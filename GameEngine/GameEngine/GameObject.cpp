@@ -51,6 +51,11 @@ RectangleCollider* GameObject::GetCollider()
     return collider;
 }
 
+void GameObject::Update(EngineState* engine)
+{
+
+}
+
 RectangleRenderer* GameObject::CreateRenderer(float width, float height, int r, int g, int b, int a)
 {
     renderer = new RectangleRenderer(width, height, r, g, b, a);
@@ -63,12 +68,14 @@ RectangleCollider* GameObject::CreateCollider()
     return collider;
 }
 
-PlayerController* GameObject::CreatePlayerController(...)
+PlayerController* GameObject::CreatePlayerController()
 {
-
+    player->owner = this;
+    return player;
 }
 
-CollisionColorChanger* GameObject::CreateColliderColorChanger(...)
+CollisionColorChanger* GameObject::CreateColliderColorChanger()
 {
 
+    return nullptr;
 }

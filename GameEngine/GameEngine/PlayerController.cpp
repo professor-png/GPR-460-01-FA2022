@@ -1,4 +1,5 @@
 #include "PlayerController.h"
+#include "GameObject.h"
 
 void PlayerController::Update(EngineState* engine)
 {

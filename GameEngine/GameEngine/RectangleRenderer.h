@@ -1,10 +1,22 @@
 #pragma once
 
+#include "EngineState.h"
+
+struct Color
+{
+	int r, g, b, a;
+};
+
 class RectangleRenderer
 {
 public:
 	float width, height;
-	int r, g, b, a;
+	Color color;
 
-	RectangleRenderer(float width, float height, int r, int g, int b, int a);
+	GameObject* owner = nullptr;
+
+	RectangleRenderer(float w, float h, Color col);
+	
+	void Draw(EngineState* engine);
+	void SetColor(Color col);
 };
