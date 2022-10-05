@@ -1,15 +1,6 @@
 // Add your System.h include file here
 #include "System.h"
 
-struct EngineState
-{
-    SDL_Renderer* renderer;
-    gpr460::System* system;
-    Uint32 frameStart;
-    bool quit;
-    int frame;
-};
-
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
 void frameStep(void* arg);

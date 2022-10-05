@@ -1,8 +1,8 @@
 #pragma once
 
-#define _CRT_SECURE_NO_WARNINGS
-#define _CRTDBG_MAP_ALLOC
 #include <string>
+#include <vector>
+#include "GameObject.h"
 
 //include windows for error file handle
 #ifdef _WIN32
@@ -17,6 +17,16 @@
 #else
 #define DBG_NEW new
 #endif
+
+struct EngineState
+{
+    SDL_Renderer* renderer;
+    gpr460::System* system;
+    std::vector<GameObject> gameObjects;
+    Uint32 frameStart;
+    bool quit;
+    int frame;
+};
 
 namespace gpr460
 {
