@@ -70,10 +70,7 @@ void GameObject::Update(EngineState* engine)
 RectangleRenderer* GameObject::CreateRenderer(float width, float height, Color color)
 {
     renderer = new RectangleRenderer(width, height, color);
-<<<<<<< HEAD
     renderer->owner = this;
-=======
->>>>>>> 05c2541b61686bd06e1b51baaf237fc2756afecd
     return renderer;
 }
 
