@@ -56,9 +56,9 @@ void GameObject::Update(EngineState* engine)
 
 }
 
-RectangleRenderer* GameObject::CreateRenderer(float width, float height, int r, int g, int b, int a)
+RectangleRenderer* GameObject::CreateRenderer(float width, float height, Color color)
 {
-    renderer = new RectangleRenderer(width, height, r, g, b, a);
+    renderer = new RectangleRenderer(width, height, color);
     return renderer;
 }
 

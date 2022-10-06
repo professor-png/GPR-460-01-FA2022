@@ -12,7 +12,7 @@ public:
     GameObject();
     ~GameObject();
 
-    RectangleRenderer* CreateRenderer(float width, float height, int r, int g, int b, int a);
+    RectangleRenderer* CreateRenderer(float width, float height, Color color);
     RectangleCollider* CreateCollider();
     PlayerController* CreatePlayerController();
     CollisionColorChanger* CreateColliderColorChanger();
