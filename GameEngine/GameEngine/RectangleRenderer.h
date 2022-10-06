@@ -5,6 +5,14 @@
 struct Color
 {
 	int r, g, b, a;
+
+	Color(int red, int green, int blue, int alpha)
+	{
+		r = red;
+		g = green;
+		b = blue;
+		a = alpha;
+	}
 };
 
 class RectangleRenderer

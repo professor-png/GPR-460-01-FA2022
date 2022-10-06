@@ -1,6 +1,6 @@
 // Add your System.h include file here
 #include "System.h"
-#include "EngineState.h"
+#include "GameObject.h"
 
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
@@ -73,6 +73,8 @@ void frameStep(void* arg)
     engine->frame++;
     engine->frameStart = now;
 
+
+
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -80,22 +82,13 @@ void frameStep(void* arg)
             engine->quit = true;
         }
 
-        //if (event.type == SDL_KEYDOWN)
-        //{
-        //    //std::cout << "Key pressed!\n";
-        //    printf("Key pressed!\n");
-        //    if (event.key.keysym.sym == SDLK_k)
-        //    {
-        //        //std::cout << "K pressed!\n";
-        //        printf("K pressed!\n");
-        //        engine->system->ErrorMessage(gpr460::K_MESSAGE);
-        //        engine->system->LogToErrorFile(gpr460::K_ERROR);
-        //    }
-        //    if (event.key.keysym.sym == SDLK_ESCAPE)
-        //    {
-        //        engine->quit = true;
-        //    }
-        //}
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                engine->quit = true;
+            }
+        }
     }
 
     int x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
@@ -127,4 +120,22 @@ void frameStep(void* arg)
 Uint32 GetTicks()
 {
     return SDL_GetTicks();
+}
+
+void CreateGameObjects(EngineState* engine)
+{
+    engine->gameObjects.push_back(new GameObject("Player", 0, 100));
+    engine->gameObjects.push_back(new GameObject("Collided", 100, 0));
+    engine->gameObjects.push_back(new GameObject("BackGround"));
+
+    engine->gameObjects[0]->CreateRenderer(50, 50, Color(0, 255, 255, 255));
+    engine->gameObjects[0]->CreateCollider();
+    engine->gameObjects[0]->CreatePlayerController();
+    engine->gameObjects[0]->CreateColliderColorChanger();
+
+    engine->gameObjects[1]->CreateRenderer(50, 50, Color(100, 255, 100, 255));
+    engine->gameObjects[1]->CreateCollider();
+    engine->gameObjects[1]->CreateColliderColorChanger();
+
+    engine->gameObjects[1]->CreateRenderer(75, 75, Color(200, 50, 175, 255));
 }

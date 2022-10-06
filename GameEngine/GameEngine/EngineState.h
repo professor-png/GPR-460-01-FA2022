@@ -8,10 +8,14 @@ class GameObject;
 
 struct EngineState
 {
-    SDL_Renderer* renderer;
-    gpr460::System* system;
+    SDL_Renderer* renderer = nullptr;
+    gpr460::System* system = nullptr;
     std::vector<GameObject*> gameObjects;
-    Uint32 frameStart;
-    bool quit;
-    int frame;
+    Uint32 frameStart = 0;
+    bool quit = false;
+    int frame = 0;
+
+    ~EngineState();
+
+    void Update(EngineState* engine);
 };

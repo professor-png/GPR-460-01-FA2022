@@ -9,10 +9,11 @@
 class GameObject
 {
 public:
-    GameObject();
+    GameObject(std::string objName);
+    GameObject(std::string objName, int x, int y);
     ~GameObject();
 
-    RectangleRenderer* CreateRenderer(float width, float height, int r, int g, int b, int a);
+    RectangleRenderer* CreateRenderer(float width, float height, Color color);
     RectangleCollider* CreateCollider();
     PlayerController* CreatePlayerController();
     CollisionColorChanger* CreateColliderColorChanger();
@@ -24,6 +25,7 @@ public:
     void Update(EngineState* engine);
 
 protected:
+    std::string name;
     Transform transform;
     RectangleRenderer* renderer;
     RectangleCollider* collider;
