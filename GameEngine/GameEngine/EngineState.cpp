@@ -13,8 +13,8 @@ EngineState::~EngineState()
 
 void EngineState::Update(EngineState* engine)
 {
-    for (auto obj : gameObjects)
+    for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
     {
-        obj->Update(engine);
+        gameObjects[i]->Update(engine);
     }
 }

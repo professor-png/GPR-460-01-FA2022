@@ -3,6 +3,7 @@
 
 class GameObject;
 class RectangleRenderer;
+struct Color;
 
 class CollisionColorChanger
 {
@@ -10,5 +11,5 @@ public:
 	GameObject* owner = nullptr;
 
 	CollisionColorChanger();
-	void Update(EngineState* engine);
+	void Update(Color color);
 };

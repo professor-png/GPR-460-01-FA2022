@@ -93,7 +93,7 @@ void frameStep(void* arg)
         }
     }
 
-    int x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
+    int x = (int)(SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
 
     SDL_Rect r = {
         x,
@@ -132,7 +132,7 @@ void CreateGameObjects(EngineState* engine)
 {
     engine->gameObjects.push_back(new GameObject("Player", 0, 100));
     engine->gameObjects.push_back(new GameObject("Collided", 100, 0));
-    engine->gameObjects.push_back(new GameObject("BackGround"));
+    engine->gameObjects.push_back(new GameObject("BackGround", 200, 300));
 
     engine->gameObjects[0]->CreateRenderer(50, 50, Color(0, 255, 255, 255));
     engine->gameObjects[0]->CreateCollider();
@@ -143,5 +143,5 @@ void CreateGameObjects(EngineState* engine)
     engine->gameObjects[1]->CreateCollider();
     engine->gameObjects[1]->CreateColliderColorChanger();
 
-    engine->gameObjects[1]->CreateRenderer(75, 75, Color(200, 50, 175, 255));
+    engine->gameObjects[2]->CreateRenderer(75, 75, Color(200, 50, 175, 255));
 }

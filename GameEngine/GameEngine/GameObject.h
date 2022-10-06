@@ -13,7 +13,7 @@ public:
     GameObject(std::string objName, int x, int y);
     ~GameObject();
 
-    RectangleRenderer* CreateRenderer(float width, float height, Color color);
+    RectangleRenderer* CreateRenderer(int width, int height, Color color);
     RectangleCollider* CreateCollider();
     PlayerController* CreatePlayerController();
     CollisionColorChanger* CreateColliderColorChanger();

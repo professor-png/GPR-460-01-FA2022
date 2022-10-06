@@ -26,12 +26,12 @@ struct Color
 class RectangleRenderer
 {
 public:
-	float width, height;
-	Color color;
+	int width, height;
+	Color originalColor, color;
 
 	GameObject* owner = nullptr;
 
-	RectangleRenderer(float w, float h, Color col);
+	RectangleRenderer(int w, int h, Color col);
 	
 	void Draw(EngineState* engine);
 	void SetColor(Color col);

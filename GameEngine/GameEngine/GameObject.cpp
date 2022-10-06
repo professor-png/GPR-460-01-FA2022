@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include <iostream>
 
 GameObject::GameObject(std::string objName)
 {
@@ -76,8 +77,10 @@ void GameObject::Update(EngineState* engine)
             {
                 collision = collider->CheckCollisions(obj->GetCollider());
 
-                /*if (collision)
-                    colorChanger*/
+                if (collision)
+                    colorChanger->Update(Color(0, 0, 200, 255));
+                else
+                    colorChanger->Update(renderer->originalColor);
             }
         }
     }
@@ -86,7 +89,7 @@ void GameObject::Update(EngineState* engine)
         renderer->Draw(engine);
 }
 
-RectangleRenderer* GameObject::CreateRenderer(float width, float height, Color color)
+RectangleRenderer* GameObject::CreateRenderer(int width, int height, Color color)
 {
     renderer = new RectangleRenderer(width, height, color);
     renderer->owner = this;

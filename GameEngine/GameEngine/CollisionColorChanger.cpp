@@ -8,7 +8,7 @@ CollisionColorChanger::CollisionColorChanger()
 
 }
 
-void CollisionColorChanger::Update(EngineState* engine)
+void CollisionColorChanger::Update(Color color)
 {
-
+	owner->GetRenderer()->color = color;
 }
