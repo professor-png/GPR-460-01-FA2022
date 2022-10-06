@@ -1,4 +1,6 @@
 #include "EngineState.h"
+#include "GameObject.h"
+
 
 EngineState::~EngineState()
 {

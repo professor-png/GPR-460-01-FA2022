@@ -7,6 +7,8 @@ void handleEvents(void* engine);
 void frameStep(void* arg);
 Uint32 GetTicks();
 
+void CreateGameObjects(EngineState* engine);
+
 int main(int argc, char* argv[])
 {
     const int WIDTH = 640;
@@ -30,6 +32,8 @@ int main(int argc, char* argv[])
     engine.frame = 0;
     engine.frameStart = GetTicks();
     engine.system = &system;
+
+    CreateGameObjects(&engine);
 
     runMainLoop(&engine);
 
@@ -73,8 +77,6 @@ void frameStep(void* arg)
     engine->frame++;
     engine->frameStart = now;
 
-
-
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -108,12 +110,16 @@ void frameStep(void* arg)
     };
 
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-
     SDL_RenderClear(engine->renderer);
+
+    engine->Update(engine);
+
+    //SDL_RenderClear(engine->renderer);
     SDL_SetRenderDrawColor(engine->renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderFillRect(engine->renderer, &r);
     SDL_SetRenderDrawColor(engine->renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderFillRect(engine->renderer, &b);
+
     SDL_RenderPresent(engine->renderer);
 }
 

@@ -64,7 +64,26 @@ RectangleCollider* GameObject::GetCollider()
 
 void GameObject::Update(EngineState* engine)
 {
+    if (player != nullptr)
+        player->Update(engine);
 
+    if (collider != nullptr)
+    {
+        bool collision = false;
+        for (auto obj : engine->gameObjects)
+        {
+            if (obj->name != name && obj->collider != nullptr)
+            {
+                collision = collider->CheckCollisions(obj->GetCollider());
+
+                /*if (collision)
+                    colorChanger*/
+            }
+        }
+    }
+
+    if (renderer != nullptr)
+        renderer->Draw(engine);
 }
 
 RectangleRenderer* GameObject::CreateRenderer(float width, float height, Color color)
@@ -76,18 +95,21 @@ RectangleRenderer* GameObject::CreateRenderer(float width, float height, Color c
 
 RectangleCollider* GameObject::CreateCollider()
 {
+    collider = new RectangleCollider();
     collider->owner = this;
     return collider;
 }
 
 PlayerController* GameObject::CreatePlayerController()
 {
+    player = new PlayerController();
     player->owner = this;
     return player;
 }
 
 CollisionColorChanger* GameObject::CreateColliderColorChanger()
 {
+    colorChanger = new CollisionColorChanger();
     colorChanger->owner = this;
     return colorChanger;
 }
