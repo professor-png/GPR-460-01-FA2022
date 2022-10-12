@@ -11,7 +11,7 @@ RectangleRenderer::RectangleRenderer(int w, int h, Color col)
 
 void RectangleRenderer::Draw(EngineState* engine)
 {
-	SDL_Rect rect = {(int)owner->GetTransform()->x, (int)owner->GetTransform()->y, width, height};
+	SDL_Rect rect = {owner->GetTransform()->position.x, owner->GetTransform()->position.y, width, height};
 	
 	SDL_SetRenderDrawColor(engine->renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(engine->renderer, &rect);

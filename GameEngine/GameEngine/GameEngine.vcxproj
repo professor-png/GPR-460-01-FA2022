@@ -139,6 +139,7 @@
     <ClCompile Include="RectangleRenderer.cpp" />
     <ClCompile Include="System_Win32.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionColorChanger.h" />
@@ -151,6 +152,7 @@
     <ClInclude Include="System_Common.h" />
     <ClInclude Include="System_Win32.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

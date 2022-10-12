@@ -8,8 +8,8 @@ RectangleCollider::RectangleCollider()
 
 bool RectangleCollider::CheckCollisions(RectangleCollider* other)
 {
-    return (owner->GetTransform()->x < other->owner->GetTransform()->x + other->owner->GetRenderer()->width &&
-        owner->GetTransform()->x + owner->GetRenderer()->width > other->owner->GetTransform()->x &&
-        owner->GetTransform()->y < other->owner->GetTransform()->y + other->owner->GetRenderer()->height &&
-        owner->GetRenderer()->height + owner->GetTransform()->y > other->owner->GetTransform()->y);
+    return (owner->GetTransform()->position.x < other->owner->GetTransform()->position.x + other->owner->GetRenderer()->width &&
+        owner->GetTransform()->position.x + owner->GetRenderer()->width > other->owner->GetTransform()->position.x &&
+        owner->GetTransform()->position.y < other->owner->GetTransform()->position.y + other->owner->GetRenderer()->height &&
+        owner->GetRenderer()->height + owner->GetTransform()->position.y > other->owner->GetTransform()->position.y);
 }

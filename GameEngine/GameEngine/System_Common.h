@@ -34,6 +34,7 @@ namespace gpr460
     private:
 #ifdef _WIN32
         HANDLE errorFile = NULL;
+        _CrtMemState memState;
 #endif
 
     public:

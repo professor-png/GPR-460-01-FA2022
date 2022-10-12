@@ -1,10 +1,11 @@
 #pragma once
+#include "Vector2.h"
 
 class Transform
 {
 public:
-	int x = 0, y = 0;
+	Vector2 position;
 
 	Transform();
-	Transform(int X, int Y);
+	Transform(Vector2 pos);
 };

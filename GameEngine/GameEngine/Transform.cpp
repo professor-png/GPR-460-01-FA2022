@@ -2,12 +2,11 @@
 
 Transform::Transform()
 {
-	x = 0;
-	y = 0;
+	position.x = 0;
+	position.y = 0;
 }
 
-Transform::Transform(int X, int Y)
+Transform::Transform(Vector2 pos)
 {
-	x = X;
-	y = Y;
+	position = pos;
 }

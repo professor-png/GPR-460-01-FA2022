@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
     SDL_Renderer* renderer = NULL;
 
     gpr460::System system;
-    system.Init();
+    //system.Init();
 
     //int* leak = DBG_NEW int[4096];
 
@@ -25,6 +25,8 @@ int main(int argc, char* argv[])
 
     window = SDL_CreateWindow("SDL2 Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+    system.Init();
 
     EngineState engine;
     engine.quit = false;
@@ -37,11 +39,13 @@ int main(int argc, char* argv[])
 
     runMainLoop(&engine);
 
+    system.ShutDown();
+
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    system.ShutDown();
+    //system.ShutDown();
     return 0;
 }
 
@@ -93,32 +97,10 @@ void frameStep(void* arg)
         }
     }
 
-    int x = (int)(SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
-
-    SDL_Rect r = {
-        x,
-        100,
-        50,
-        50
-    };
-
-    SDL_Rect b = {
-        x,
-        200,
-        50,
-        50
-    };
-
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(engine->renderer);
 
     engine->Update(engine);
-
-    //SDL_RenderClear(engine->renderer);
-    SDL_SetRenderDrawColor(engine->renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderFillRect(engine->renderer, &r);
-    SDL_SetRenderDrawColor(engine->renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
-    SDL_RenderFillRect(engine->renderer, &b);
 
     SDL_RenderPresent(engine->renderer);
 }
@@ -128,8 +110,13 @@ Uint32 GetTicks()
     return SDL_GetTicks();
 }
 
+/* Using Structure of Arrays all components end up next to eachother in memory*/
+
 void CreateGameObjects(EngineState* engine)
 {
+    // Each create compnent allocates _some_ memory
+    //  Memory consumption probably isnt a concern -- but
+    //  where do each of our new allocations 
     engine->gameObjects.push_back(new GameObject("Player", 0, 100));
     engine->gameObjects.push_back(new GameObject("Collided", 100, 0));
     engine->gameObjects.push_back(new GameObject("BackGround", 200, 300));
@@ -144,4 +131,7 @@ void CreateGameObjects(EngineState* engine)
     engine->gameObjects[1]->CreateColliderColorChanger();
 
     engine->gameObjects[2]->CreateRenderer(75, 75, Color(200, 50, 175, 255));
+
+    // have a bunch of game objects laid out like this:
+    //   Player: [ptrToAllComponents]
 }

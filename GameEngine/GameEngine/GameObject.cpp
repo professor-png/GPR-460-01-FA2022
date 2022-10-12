@@ -14,7 +14,7 @@ GameObject::GameObject(std::string objName)
 GameObject::GameObject(std::string objName, int x, int y)
 {
     name = objName;
-    transform = Transform(x, y);
+    transform = Transform(Vector2(x, y));
     renderer = nullptr;
     collider = nullptr;
     player = nullptr;
@@ -91,28 +91,40 @@ void GameObject::Update(EngineState* engine)
 
 RectangleRenderer* GameObject::CreateRenderer(int width, int height, Color color)
 {
-    renderer = new RectangleRenderer(width, height, color);
-    renderer->owner = this;
+    if (renderer == nullptr)
+    {
+        renderer = new RectangleRenderer(width, height, color);
+        renderer->owner = this;
+    }
     return renderer;
 }
 
 RectangleCollider* GameObject::CreateCollider()
 {
-    collider = new RectangleCollider();
-    collider->owner = this;
+    if (collider == nullptr)
+    {
+        collider = new RectangleCollider();
+        collider->owner = this;
+    }
     return collider;
 }
 
 PlayerController* GameObject::CreatePlayerController()
 {
-    player = new PlayerController();
-    player->owner = this;
+    if (player == nullptr)
+    {
+        player = new PlayerController();
+        player->owner = this;
+    }
     return player;
 }
 
 CollisionColorChanger* GameObject::CreateColliderColorChanger()
 {
-    colorChanger = new CollisionColorChanger();
-    colorChanger->owner = this;
+    if (colorChanger == nullptr)
+    {
+        colorChanger = new CollisionColorChanger();
+        colorChanger->owner = this;
+    }
     return colorChanger;
 }
