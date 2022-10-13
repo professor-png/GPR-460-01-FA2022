@@ -126,12 +126,14 @@ void CreateGameObjects(World* world, EngineState* engine)
     //  Memory consumption probably isnt a concern -- but
     //  where do each of our new allocations 
 
-    /*world->CreateGameObject("Player", Transform(Vector2(0, 100)));
+    world->CreateGameObject("Player", Transform(Vector2(0, 100)));
     world->CreateGameObject("Collided", Transform(Vector2(100, 0)));
-    world->CreateGameObject("BackGround", Transform(Vector2(200, 300)));*/
+    world->CreateGameObject("BackGround", Transform(Vector2(200, 300)));
+
+    //world->AddRectangleRenderer(0, RectangleRenderer());
 
     /************Old Way of creating Game Objects************/
-    engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
+    /*engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
     engine->gameObjects.push_back(new GameObject("Collided", Transform(Vector2(100, 0))));
     engine->gameObjects.push_back(new GameObject("BackGround", Transform(Vector2(200, 300))));
 
@@ -144,7 +146,7 @@ void CreateGameObjects(World* world, EngineState* engine)
     engine->gameObjects[1]->CreateCollider(new RectangleCollider());
     engine->gameObjects[1]->CreateColliderColorChanger(new CollisionColorChanger());
 
-    engine->gameObjects[2]->CreateRenderer(new RectangleRenderer(75, 75, Color(200, 50, 175, 255)));
+    engine->gameObjects[2]->CreateRenderer(new RectangleRenderer(75, 75, Color(200, 50, 175, 255)));*/
 
     // have a bunch of game objects laid out like this:
     //   Player: [ptrToAllComponents]

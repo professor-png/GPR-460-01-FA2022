@@ -20,6 +20,7 @@ public:
     PlayerController* CreatePlayerController(PlayerController* playerController);
     CollisionColorChanger* CreateColliderColorChanger(CollisionColorChanger* colChanger);
 
+    std::string GetName();
     Transform* GetTransform();
     RectangleRenderer* GetRenderer();
     RectangleCollider* GetCollider();

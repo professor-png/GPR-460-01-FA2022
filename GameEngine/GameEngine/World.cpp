@@ -11,6 +11,32 @@ World::World()
 
 void World::UpdateAll(EngineState* engine)
 {
+	for (PlayerController player : playerControllers)
+	{
+		PlayerController::Update(&player, engine);
+	}
+
+	for (int i = 0; i < numActiveRectangleColliders; i++)
+	{
+		for (RectangleCollider collider : rectangleColliders)
+		{
+			if (rectangleColliders[i].owner->GetName() != collider.owner->GetName())
+			{
+				rectangleColliders[i].SetColliding(collider.owner->GetCollider()->CheckCollisions(collider.owner->GetCollider()));
+			}
+		}
+	}
+
+	for (CollisionColorChanger colorChanger : collisionColorChangers)
+	{
+		if (colorChanger.owner->GetCollider()->GetColliding())
+			CollisionColorChanger::Update(&colorChanger, Color(0, 0, 255, 255));
+	}
+
+	for (RectangleRenderer renderer : rectangleRenderers)
+	{
+		RectangleRenderer::Draw(&renderer, engine);
+	}
 
 }
 

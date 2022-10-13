@@ -12,6 +12,7 @@ private:
 public:
 	PlayerController();
 
-	void Update(/*PlayerController player,*/ EngineState* engine);
+	void Update(EngineState* engine);
+	static void Update(PlayerController* player, EngineState* engine);
 	GameObject* owner = nullptr;
 };

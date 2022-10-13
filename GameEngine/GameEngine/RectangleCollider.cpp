@@ -6,6 +6,16 @@ RectangleCollider::RectangleCollider()
 
 }
 
+bool RectangleCollider::GetColliding()
+{ 
+    return colliding;
+}
+
+void RectangleCollider::SetColliding(bool collider)
+{
+    colliding = collider;
+}
+
 bool RectangleCollider::CheckCollisions(RectangleCollider* other)
 {
     return (owner->GetTransform()->position.x < other->owner->GetTransform()->position.x + other->owner->GetRenderer()->width &&

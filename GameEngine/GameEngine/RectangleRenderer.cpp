@@ -25,6 +25,14 @@ void RectangleRenderer::Draw(EngineState* engine)
 	SDL_RenderFillRect(engine->renderer, &rect);
 }
 
+void RectangleRenderer::Draw(RectangleRenderer* renderer, EngineState* engine)
+{
+	SDL_Rect rect = { renderer->owner->GetTransform()->position.x, renderer->owner->GetTransform()->position.y, renderer->width, renderer->height };
+
+	SDL_SetRenderDrawColor(engine->renderer, renderer->color.r, renderer->color.g, renderer->color.b, renderer->color.a);
+	SDL_RenderFillRect(engine->renderer, &rect);
+}
+
 void RectangleRenderer::SetColor(Color col)
 {
 	color = col;

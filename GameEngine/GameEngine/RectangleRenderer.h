@@ -34,5 +34,6 @@ public:
 	RectangleRenderer(int w, int h, Color col);
 	
 	void Draw(EngineState* engine);
+	static void Draw(RectangleRenderer* renderer, EngineState* engine);
 	void SetColor(Color col);
 };

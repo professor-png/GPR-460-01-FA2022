@@ -6,7 +6,7 @@ PlayerController::PlayerController()
 
 }
 
-void PlayerController::Update(/*PlayerController player, */EngineState* engine)
+void PlayerController::Update(EngineState* engine)
 {
     const Uint8* state = SDL_GetKeyboardState(NULL);
 
@@ -28,5 +28,30 @@ void PlayerController::Update(/*PlayerController player, */EngineState* engine)
     if (state[SDL_SCANCODE_DOWN])
     {
         owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x, owner->GetTransform()->position.y + 1);
+    }
+}
+
+void Update(PlayerController* player, EngineState* engine)
+{
+    const Uint8* state = SDL_GetKeyboardState(NULL);
+
+    if (state[SDL_SCANCODE_RIGHT])
+    {
+        player->owner->GetTransform()->position = Vector2(player->owner->GetTransform()->position.x + 1, player->owner->GetTransform()->position.y);
+    }
+
+    if (state[SDL_SCANCODE_LEFT])
+    {
+        player->owner->GetTransform()->position = Vector2(player->owner->GetTransform()->position.x - 1, player->owner->GetTransform()->position.y);
+    }
+
+    if (state[SDL_SCANCODE_UP])
+    {
+        player->owner->GetTransform()->position = Vector2(player->owner->GetTransform()->position.x, player->owner->GetTransform()->position.y - 1);
+    }
+
+    if (state[SDL_SCANCODE_DOWN])
+    {
+        player->owner->GetTransform()->position = Vector2(player->owner->GetTransform()->position.x, player->owner->GetTransform()->position.y + 1);
     }
 }
