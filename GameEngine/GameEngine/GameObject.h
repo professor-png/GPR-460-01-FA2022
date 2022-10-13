@@ -6,6 +6,8 @@
 #include "PlayerController.h"
 #include "CollisionColorChanger.h"
 
+#include <iostream>
+
 class GameObject
 {
 public:

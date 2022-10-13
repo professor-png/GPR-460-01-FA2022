@@ -1,5 +1,4 @@
 #include "CollisionColorChanger.h"
-
 #include "GameObject.h"
 #include "RectangleRenderer.h"
 

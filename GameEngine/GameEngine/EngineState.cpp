@@ -13,8 +13,10 @@ EngineState::~EngineState()
 
 void EngineState::Update(EngineState* engine)
 {
-    for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
-    {
-        gameObjects[i]->Update(engine);
-    }
+    //for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
+    //{
+    //    gameObjects[i]->Update(engine);
+    //}
+
+    world.UpdateAll(engine);
 }

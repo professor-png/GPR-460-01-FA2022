@@ -1,6 +1,5 @@
 #pragma once
-#include "EngineState.h"
-
+//#include "EngineState.h"
 class GameObject;
 class RectangleRenderer;
 struct Color;

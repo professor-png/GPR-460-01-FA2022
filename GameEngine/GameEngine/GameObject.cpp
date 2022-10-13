@@ -1,5 +1,5 @@
 #include "GameObject.h"
-#include <iostream>
+#include "EngineState.h"
 
 GameObject::GameObject()
 {

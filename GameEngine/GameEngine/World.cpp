@@ -1,4 +1,5 @@
 #include "World.h"
+#include "EngineState.h"
 
 World::World()
 {
@@ -13,7 +14,8 @@ void World::UpdateAll(EngineState* engine)
 {
 	for (PlayerController player : playerControllers)
 	{
-		PlayerController::Update(&player, engine);
+		player.Update(engine);
+		//PlayerController::Update(&player, engine);
 	}
 
 	for (int i = 0; i < numActiveRectangleColliders; i++)
@@ -35,7 +37,8 @@ void World::UpdateAll(EngineState* engine)
 
 	for (RectangleRenderer renderer : rectangleRenderers)
 	{
-		RectangleRenderer::Draw(&renderer, engine);
+		renderer.Draw(engine);
+		//RectangleRenderer::Draw(&renderer, engine);
 	}
 
 }
@@ -71,8 +74,8 @@ bool World::AddRectangleRenderer(int objIndex, RectangleRenderer renderer)
 		return false;
 	else
 	{
-		rectangleRenderers[numActiveRectangleRenderers] = renderer;
-		gameObjects[objIndex].CreateRenderer(&rectangleRenderers[numActiveRectangleRenderers]);
+		rectangleRenderers[objIndex] = renderer;
+		gameObjects[objIndex].CreateRenderer(&rectangleRenderers[objIndex]);
 		numActiveRectangleRenderers++;
 	}
 	return true;

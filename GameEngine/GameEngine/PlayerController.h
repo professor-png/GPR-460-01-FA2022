@@ -1,7 +1,7 @@
 #pragma once
 
-#include "EngineState.h"
-
+//#include "EngineState.h"
+struct EngineState;
 class GameObject;
 
 class PlayerController

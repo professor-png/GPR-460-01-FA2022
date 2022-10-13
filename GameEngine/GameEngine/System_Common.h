@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include "World.h"
+//#include "EngineState.h"
 
 //include windows for error file handle
 #ifdef _WIN32

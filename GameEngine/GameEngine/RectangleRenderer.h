@@ -1,6 +1,7 @@
 #pragma once
 
-#include "EngineState.h"
+//#include "EngineState.h"
+struct EngineState;
 
 struct Color
 {
