@@ -23,6 +23,7 @@ struct World
 	CollisionColorChanger collisionColorChangers[MAX_OBJECTS];
 
 	World();
+	~World();
 
 	void UpdateAll(EngineState* engine);
 

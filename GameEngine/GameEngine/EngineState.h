@@ -5,6 +5,7 @@
 #include <vector>
 
 class GameObject;
+struct World;
 
 struct EngineState
 {

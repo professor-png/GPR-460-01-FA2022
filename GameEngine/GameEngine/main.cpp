@@ -1,5 +1,6 @@
 // Add your System.h include file here
 #include "System.h"
+#include "EngineState.h"
 //#include "GameObject.h"
 //#include "World.h"
 
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
 
     system.Init();
 
-    {
+    { /*THESE BRACKETS ARE CAUSING SCALAR THING*/
         EngineState engine;
         engine.quit = false;
         engine.renderer = renderer;
@@ -122,12 +123,21 @@ void CreateGameObjects(EngineState* engine)
     // Each create compnent allocates _some_ memory
     //  Memory consumption probably isnt a concern -- but
     //  where do each of our new allocations 
+    
+    engine->world.CreateGameObject("Player", Transform(Vector2(0, 100)));
+    engine->world.CreateGameObject("Collided", Transform(Vector2(100, 0)));
+    engine->world.CreateGameObject("BackGround", Transform(Vector2(200, 300)));
 
-    engine->world->CreateGameObject("Player", Transform(Vector2(0, 100)));
-    engine->world->CreateGameObject("Collided", Transform(Vector2(100, 0)));
-    engine->world->CreateGameObject("BackGround", Transform(Vector2(200, 300)));
+    engine->world.AddPlayerController(0, PlayerController());
+    engine->world.AddRectangleRenderer(0, RectangleRenderer(50, 50, Color(0, 255, 255, 255)));
+    engine->world.AddCollisionColorChanger(0, CollisionColorChanger());
+    engine->world.AddRectangleCollider(0, RectangleCollider());
 
-    engine->world->AddRectangleRenderer(0, RectangleRenderer(50, 50, Color(0, 255, 255, 255)));
+    engine->world.AddRectangleRenderer(1, RectangleRenderer(50, 50, Color(100, 0, 255, 255)));
+    engine->world.AddRectangleCollider(1, RectangleCollider());
+    engine->world.AddCollisionColorChanger(1, CollisionColorChanger());
+
+    engine->world.AddRectangleRenderer(2, RectangleRenderer(100, 100, Color(100, 255, 100, 255)));
     
     /************Old Way of creating Game Objects************/
     /*engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));

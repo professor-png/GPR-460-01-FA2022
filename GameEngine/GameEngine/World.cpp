@@ -10,11 +10,17 @@ World::World()
 	numActiveColorChangers = 0;
 }
 
+World::~World()
+{
+
+}
+
 void World::UpdateAll(EngineState* engine)
 {
 	for (PlayerController player : playerControllers)
 	{
-		player.Update(engine);
+		if (player.owner != nullptr)
+			player.Update(engine);
 		//PlayerController::Update(&player, engine);
 	}
 
@@ -22,22 +28,25 @@ void World::UpdateAll(EngineState* engine)
 	{
 		for (RectangleCollider collider : rectangleColliders)
 		{
-			if (rectangleColliders[i].owner->GetName() != collider.owner->GetName())
+			if (collider.owner != nullptr && rectangleColliders[i].owner != nullptr && rectangleColliders[i].owner->GetName() != collider.owner->GetName())
 			{
-				rectangleColliders[i].SetColliding(collider.owner->GetCollider()->CheckCollisions(collider.owner->GetCollider()));
+				rectangleColliders[i].SetColliding(rectangleColliders[i].owner->GetCollider()->CheckCollisions(collider.owner->GetCollider()));
 			}
 		}
 	}
 
 	for (CollisionColorChanger colorChanger : collisionColorChangers)
 	{
-		if (colorChanger.owner->GetCollider()->GetColliding())
+		if (colorChanger.owner != nullptr && colorChanger.owner->GetCollider() != nullptr && colorChanger.owner->GetCollider()->GetColliding())
 			CollisionColorChanger::Update(&colorChanger, Color(0, 0, 255, 255));
+		else if (colorChanger.owner != nullptr && colorChanger.owner->GetCollider() != nullptr && !colorChanger.owner->GetCollider()->GetColliding())
+			CollisionColorChanger::Update(&colorChanger, colorChanger.owner->GetRenderer()->originalColor);
 	}
 
 	for (RectangleRenderer renderer : rectangleRenderers)
 	{
-		renderer.Draw(engine);
+		if (renderer.owner != nullptr)
+			renderer.Draw(engine);
 		//RectangleRenderer::Draw(&renderer, engine);
 	}
 

@@ -4,7 +4,7 @@ class GameObject;
 class RectangleCollider
 {
 private:
-	bool colliding;
+	bool colliding = false;
 
 public:
 	RectangleCollider();
