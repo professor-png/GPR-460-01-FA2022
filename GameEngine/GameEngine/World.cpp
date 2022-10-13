@@ -1,6 +1,15 @@
 #include "World.h"
 
-void World::UpdateAll()
+World::World()
+{
+	numActiveObjects = 0;
+	numActivePlayerControllers = 0;
+	numActiveRectangleRenderers = 0;
+	numActiveRectangleColliders = 0;
+	numActiveColorChangers = 0;
+}
+
+void World::UpdateAll(EngineState* engine)
 {
 
 }

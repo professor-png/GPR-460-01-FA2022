@@ -1,13 +1,14 @@
 // Add your System.h include file here
 #include "System.h"
-#include "GameObject.h"
+//#include "GameObject.h"
+#include "World.h"
 
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
 void frameStep(void* arg);
 Uint32 GetTicks();
 
-void CreateGameObjects(EngineState* engine);
+void CreateGameObjects(World* world, EngineState* engine);
 
 int main(int argc, char* argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char* argv[])
     SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
 
+    World world;
     gpr460::System system;
     //system.Init();
 
@@ -28,16 +30,20 @@ int main(int argc, char* argv[])
 
     system.Init();
 
-    EngineState engine;
-    engine.quit = false;
-    engine.renderer = renderer;
-    engine.frame = 0;
-    engine.frameStart = GetTicks();
-    engine.system = &system;
+    {
+        EngineState engine;
+        engine.quit = false;
+        engine.renderer = renderer;
+        engine.frame = 0;
+        engine.frameStart = GetTicks();
+        engine.system = &system;
 
-    CreateGameObjects(&engine);
 
-    runMainLoop(&engine);
+        CreateGameObjects(&world, &engine);
+
+
+        runMainLoop(&engine);
+    }
 
     system.ShutDown();
 
@@ -99,7 +105,9 @@ void frameStep(void* arg)
 
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(engine->renderer);
+    
 
+    /****Old Update****/
     engine->Update(engine);
 
     SDL_RenderPresent(engine->renderer);
@@ -112,11 +120,17 @@ Uint32 GetTicks()
 
 /* Using Structure of Arrays all components end up next to eachother in memory*/
 
-void CreateGameObjects(EngineState* engine)
+void CreateGameObjects(World* world, EngineState* engine)
 {
     // Each create compnent allocates _some_ memory
     //  Memory consumption probably isnt a concern -- but
     //  where do each of our new allocations 
+
+    /*world->CreateGameObject("Player", Transform(Vector2(0, 100)));
+    world->CreateGameObject("Collided", Transform(Vector2(100, 0)));
+    world->CreateGameObject("BackGround", Transform(Vector2(200, 300)));*/
+
+    /************Old Way of creating Game Objects************/
     engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
     engine->gameObjects.push_back(new GameObject("Collided", Transform(Vector2(100, 0))));
     engine->gameObjects.push_back(new GameObject("BackGround", Transform(Vector2(200, 300))));

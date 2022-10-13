@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+#include "EngineState.h"
 
 const int MAX_OBJECTS = 2000;
 
@@ -19,7 +20,9 @@ struct World
 	RectangleCollider rectangleColliders[MAX_OBJECTS];
 	CollisionColorChanger collisionColorChangers[MAX_OBJECTS];
 
-	void UpdateAll();
+	World();
+
+	void UpdateAll(EngineState* engine);
 
 	bool CreateGameObject(std::string name, Transform transform);
 	bool AddPlayerController(int objIndex, PlayerController controller);

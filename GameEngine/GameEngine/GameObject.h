@@ -9,6 +9,7 @@
 class GameObject
 {
 public:
+    GameObject();
     GameObject(const GameObject& gameObject);
     GameObject(std::string objName);
     GameObject(std::string objName, Transform position);

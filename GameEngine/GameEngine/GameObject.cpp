@@ -1,6 +1,16 @@
 #include "GameObject.h"
 #include <iostream>
 
+GameObject::GameObject()
+{
+    name = "GameObject";
+    transform = Transform();
+    renderer = nullptr;
+    collider = nullptr;
+    player = nullptr;
+    colorChanger = nullptr;
+}
+
 GameObject::GameObject(const GameObject& gameObject)
 {
     name = gameObject.name;

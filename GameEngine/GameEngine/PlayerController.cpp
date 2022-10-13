@@ -6,7 +6,7 @@ PlayerController::PlayerController()
 
 }
 
-void PlayerController::Update(EngineState* engine)
+void PlayerController::Update(/*PlayerController player, */EngineState* engine)
 {
     const Uint8* state = SDL_GetKeyboardState(NULL);
 

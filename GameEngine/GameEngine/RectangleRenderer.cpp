@@ -1,6 +1,14 @@
 #include "RectangleRenderer.h"
 #include "GameObject.h"
 
+RectangleRenderer::RectangleRenderer()
+{
+	width = 10;
+	height = 10;
+	color = Color();
+	originalColor = Color();
+}
+
 RectangleRenderer::RectangleRenderer(int w, int h, Color col)
 {
 	width = w;

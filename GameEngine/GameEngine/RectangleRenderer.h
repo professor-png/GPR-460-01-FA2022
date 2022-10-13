@@ -30,7 +30,7 @@ public:
 	Color originalColor, color;
 
 	GameObject* owner = nullptr;
-
+	RectangleRenderer();
 	RectangleRenderer(int w, int h, Color col);
 	
 	void Draw(EngineState* engine);
