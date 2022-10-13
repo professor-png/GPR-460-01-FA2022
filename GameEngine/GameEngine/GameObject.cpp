@@ -1,6 +1,16 @@
 #include "GameObject.h"
 #include <iostream>
 
+GameObject::GameObject(const GameObject& gameObject)
+{
+    name = gameObject.name;
+    transform = gameObject.transform;
+    renderer = gameObject.renderer;
+    collider = gameObject.collider;
+    player = gameObject.player;
+    colorChanger = gameObject.colorChanger;
+}
+
 GameObject::GameObject(std::string objName)
 {
     name = objName;
@@ -11,10 +21,10 @@ GameObject::GameObject(std::string objName)
     colorChanger = nullptr;
 }
 
-GameObject::GameObject(std::string objName, int x, int y)
+GameObject::GameObject(std::string objName, Transform position)
 {
     name = objName;
-    transform = Transform(Vector2(x, y));
+    transform = position;
     renderer = nullptr;
     collider = nullptr;
     player = nullptr;
@@ -89,41 +99,41 @@ void GameObject::Update(EngineState* engine)
         renderer->Draw(engine);
 }
 
-RectangleRenderer* GameObject::CreateRenderer(int width, int height, Color color)
+RectangleRenderer* GameObject::CreateRenderer(RectangleRenderer* rectRenderer)
 {
     if (renderer == nullptr)
     {
-        renderer = new RectangleRenderer(width, height, color);
+        renderer = rectRenderer;
         renderer->owner = this;
     }
     return renderer;
 }
 
-RectangleCollider* GameObject::CreateCollider()
+RectangleCollider* GameObject::CreateCollider(RectangleCollider* rectCollider)
 {
     if (collider == nullptr)
     {
-        collider = new RectangleCollider();
+        collider = rectCollider;
         collider->owner = this;
     }
     return collider;
 }
 
-PlayerController* GameObject::CreatePlayerController()
+PlayerController* GameObject::CreatePlayerController(PlayerController* playerController)
 {
     if (player == nullptr)
     {
-        player = new PlayerController();
+        player = playerController;
         player->owner = this;
     }
     return player;
 }
 
-CollisionColorChanger* GameObject::CreateColliderColorChanger()
+CollisionColorChanger* GameObject::CreateColliderColorChanger(CollisionColorChanger* colChanger)
 {
     if (colorChanger == nullptr)
     {
-        colorChanger = new CollisionColorChanger();
+        colorChanger = colChanger;
         colorChanger->owner = this;
     }
     return colorChanger;

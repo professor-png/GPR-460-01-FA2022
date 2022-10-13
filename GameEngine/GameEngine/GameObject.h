@@ -9,14 +9,15 @@
 class GameObject
 {
 public:
+    GameObject(const GameObject& gameObject);
     GameObject(std::string objName);
-    GameObject(std::string objName, int x, int y);
+    GameObject(std::string objName, Transform position);
     ~GameObject();
 
-    RectangleRenderer* CreateRenderer(int width, int height, Color color);
-    RectangleCollider* CreateCollider();
-    PlayerController* CreatePlayerController();
-    CollisionColorChanger* CreateColliderColorChanger();
+    RectangleRenderer* CreateRenderer(RectangleRenderer* rectRenderer/*int width, int height, Color color*/);
+    RectangleCollider* CreateCollider(RectangleCollider* rectCollider);
+    PlayerController* CreatePlayerController(PlayerController* playerController);
+    CollisionColorChanger* CreateColliderColorChanger(CollisionColorChanger* colChanger);
 
     Transform* GetTransform();
     RectangleRenderer* GetRenderer();

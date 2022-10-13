@@ -117,20 +117,20 @@ void CreateGameObjects(EngineState* engine)
     // Each create compnent allocates _some_ memory
     //  Memory consumption probably isnt a concern -- but
     //  where do each of our new allocations 
-    engine->gameObjects.push_back(new GameObject("Player", 0, 100));
-    engine->gameObjects.push_back(new GameObject("Collided", 100, 0));
-    engine->gameObjects.push_back(new GameObject("BackGround", 200, 300));
+    engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
+    engine->gameObjects.push_back(new GameObject("Collided", Transform(Vector2(100, 0))));
+    engine->gameObjects.push_back(new GameObject("BackGround", Transform(Vector2(200, 300))));
 
-    engine->gameObjects[0]->CreateRenderer(50, 50, Color(0, 255, 255, 255));
-    engine->gameObjects[0]->CreateCollider();
-    engine->gameObjects[0]->CreatePlayerController();
-    engine->gameObjects[0]->CreateColliderColorChanger();
+    engine->gameObjects[0]->CreateRenderer(new RectangleRenderer(50, 50, Color(0, 255, 255, 255)));
+    engine->gameObjects[0]->CreateCollider(new RectangleCollider());
+    engine->gameObjects[0]->CreatePlayerController(new PlayerController());
+    engine->gameObjects[0]->CreateColliderColorChanger(new CollisionColorChanger());
 
-    engine->gameObjects[1]->CreateRenderer(50, 50, Color(100, 255, 100, 255));
-    engine->gameObjects[1]->CreateCollider();
-    engine->gameObjects[1]->CreateColliderColorChanger();
+    engine->gameObjects[1]->CreateRenderer(new RectangleRenderer(50, 50, Color(100, 255, 100, 255)));
+    engine->gameObjects[1]->CreateCollider(new RectangleCollider());
+    engine->gameObjects[1]->CreateColliderColorChanger(new CollisionColorChanger());
 
-    engine->gameObjects[2]->CreateRenderer(75, 75, Color(200, 50, 175, 255));
+    engine->gameObjects[2]->CreateRenderer(new RectangleRenderer(75, 75, Color(200, 50, 175, 255)));
 
     // have a bunch of game objects laid out like this:
     //   Player: [ptrToAllComponents]
