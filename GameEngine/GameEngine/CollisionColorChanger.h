@@ -10,6 +10,9 @@ public:
 	GameObject* owner = nullptr;
 
 	CollisionColorChanger();
+	~CollisionColorChanger();
+
+	void ShutDown();
 	void Update(Color color);
 	static void Update(CollisionColorChanger* colorChanger, Color color);
 };

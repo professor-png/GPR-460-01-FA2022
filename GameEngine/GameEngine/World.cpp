@@ -12,7 +12,30 @@ World::World()
 
 World::~World()
 {
+	for (PlayerController player : playerControllers)
+	{
+		player.ShutDown();
+	}
 
+	for (RectangleCollider collider : rectangleColliders)
+	{
+		collider.ShutDown();
+	}
+
+	for (CollisionColorChanger colorChanger : collisionColorChangers)
+	{
+		colorChanger.ShutDown();
+	}
+
+	for (RectangleRenderer renderer : rectangleRenderers)
+	{
+		renderer.ShutDown();
+	}
+
+	for (GameObject object : gameObjects)
+	{
+		object.ShutDown();
+	}
 }
 
 void World::UpdateAll(EngineState* engine)

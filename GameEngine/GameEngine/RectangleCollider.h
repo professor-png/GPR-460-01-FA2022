@@ -8,7 +8,9 @@ private:
 
 public:
 	RectangleCollider();
+	~RectangleCollider();
 
+	void ShutDown();
 	bool GetColliding();
 	void SetColliding(bool collider);
 

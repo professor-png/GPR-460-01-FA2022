@@ -18,6 +18,19 @@ RectangleRenderer::RectangleRenderer(int w, int h, Color col)
 	originalColor = col;
 }
 
+RectangleRenderer::~RectangleRenderer()
+{
+	ShutDown();
+}
+
+void RectangleRenderer::ShutDown()
+{
+	if (owner != nullptr)
+		delete owner;
+
+	owner = nullptr;
+}
+
 void RectangleRenderer::Draw(EngineState* engine)
 {
 	SDL_Rect rect = {owner->GetTransform()->position.x, owner->GetTransform()->position.y, width, height};

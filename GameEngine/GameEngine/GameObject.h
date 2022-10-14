@@ -17,6 +17,8 @@ public:
     GameObject(std::string objName, Transform position);
     ~GameObject();
 
+    void ShutDown();
+
     RectangleRenderer* CreateRenderer(RectangleRenderer* rectRenderer/*int width, int height, Color color*/);
     RectangleCollider* CreateCollider(RectangleCollider* rectCollider);
     PlayerController* CreatePlayerController(PlayerController* playerController);

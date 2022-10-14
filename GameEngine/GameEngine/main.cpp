@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     SDL_Renderer* renderer = NULL;
 
     gpr460::System system;
-    //system.Init();
+    system.Init();
 
     //int* leak = DBG_NEW int[4096];
 
@@ -28,30 +28,30 @@ int main(int argc, char* argv[])
     window = SDL_CreateWindow("SDL2 Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    system.Init();
+    //system.Init();
+    system.SetMemoryCheckpoint();
 
-    { /*THESE BRACKETS ARE CAUSING SCALAR THING*/
-        EngineState engine;
-        engine.quit = false;
-        engine.renderer = renderer;
-        engine.frame = 0;
-        engine.frameStart = GetTicks();
-        engine.system = &system;
+    /*THESE BRACKETS ARE CAUSING SCALAR THING*/
+    EngineState engine;
+    engine.quit = false;
+    engine.renderer = renderer;
+    engine.frame = 0;
+    engine.frameStart = GetTicks();
+    engine.system = &system;
 
+    CreateGameObjects(&engine);
 
-        CreateGameObjects(&engine);
+    runMainLoop(&engine);
 
-
-        runMainLoop(&engine);
-    }
-
+    engine.ShutDown();
+    //system.ShutDown();
     system.ShutDown();
+    system.GetMemoryCheckpoint();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    //system.ShutDown();
     return 0;
 }
 

@@ -43,6 +43,11 @@ GameObject::GameObject(std::string objName, Transform position)
 
 GameObject::~GameObject()
 {
+    ShutDown();
+}
+
+void GameObject::ShutDown()
+{
     if (renderer != nullptr)
     {
         delete renderer;

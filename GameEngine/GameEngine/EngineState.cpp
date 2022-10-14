@@ -5,11 +5,19 @@
 
 EngineState::~EngineState()
 {
+    ShutDown();
+}
+
+void EngineState::ShutDown()
+{
     for (auto obj : gameObjects)
     {
         delete obj;
     }
     gameObjects.clear();
+
+    renderer = nullptr;
+    system = nullptr;
 }
 
 void EngineState::Update(EngineState* engine)

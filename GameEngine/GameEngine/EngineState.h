@@ -19,5 +19,6 @@ struct EngineState
 
     ~EngineState();
 
+    void ShutDown();
     void Update(EngineState* engine);
 };

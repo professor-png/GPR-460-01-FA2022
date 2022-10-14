@@ -33,7 +33,9 @@ public:
 	GameObject* owner = nullptr;
 	RectangleRenderer();
 	RectangleRenderer(int w, int h, Color col);
+	~RectangleRenderer();
 	
+	void ShutDown();
 	void Draw(EngineState* engine);
 	static void Draw(RectangleRenderer* renderer, EngineState* engine);
 	void SetColor(Color col);

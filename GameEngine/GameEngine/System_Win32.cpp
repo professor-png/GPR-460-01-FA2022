@@ -4,14 +4,6 @@ namespace gpr460
 {
 	void System::Init()
 	{
-		// when using these calls we can report leaks automatically
-		// however, when memory isnt freed by the end of the program, but this is not a leak so it will report useless info
-		//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-		//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
-
-		//instead we use this function to create a checkpoint of what memory has been alocated or not
-		_CrtMemCheckpoint(&memState);
-
 		// make console window
 		if (!AllocConsole())
 		{
@@ -27,7 +19,21 @@ namespace gpr460
 		//close ErrorFile
 		if (errorFile != NULL)
 			CloseHandle(errorFile);
+	}
 
+	void System::SetMemoryCheckpoint()
+	{
+		// when using these calls we can report leaks automatically
+		// however, when memory isnt freed by the end of the program, but this is not a leak so it will report useless info
+		//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+		//_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
+
+		//instead we use this function to create a checkpoint of what memory has been alocated or not
+		_CrtMemCheckpoint(&memState);
+	}
+
+	void System::GetMemoryCheckpoint()
+	{
 		// this will output our leaks not SDL's leaks
 		_CrtMemDumpAllObjectsSince(&memState);
 	}

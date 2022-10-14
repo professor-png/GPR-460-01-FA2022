@@ -6,6 +6,19 @@ RectangleCollider::RectangleCollider()
 
 }
 
+RectangleCollider::~RectangleCollider()
+{
+    ShutDown();
+}
+
+void RectangleCollider::ShutDown()
+{
+    if (owner != nullptr)
+        delete owner;
+
+    owner = nullptr;
+}
+
 bool RectangleCollider::GetColliding()
 { 
     return colliding;
