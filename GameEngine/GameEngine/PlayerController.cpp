@@ -9,13 +9,13 @@ PlayerController::PlayerController()
 
 PlayerController::~PlayerController()
 {
-    ShutDown();
+    //ShutDown();
 }
 
 void PlayerController::ShutDown()
 {
-    if (owner != nullptr)
-        delete owner;
+    /*if (owner != nullptr)
+        delete owner;*/
 
     owner = nullptr;
 }
@@ -45,7 +45,7 @@ void PlayerController::Update(EngineState* engine)
     }
 }
 
-void Update(PlayerController* player, EngineState* engine)
+void PlayerController::Update(PlayerController* player, EngineState* engine)
 {
     const Uint8* state = SDL_GetKeyboardState(NULL);
 

@@ -9,13 +9,13 @@ CollisionColorChanger::CollisionColorChanger()
 
 CollisionColorChanger::~CollisionColorChanger()
 {
-	ShutDown();
+	//ShutDown();
 }
 
 void CollisionColorChanger::ShutDown()
 {
-	if (owner != nullptr)
-		delete owner;
+	/*if (owner != nullptr)
+		delete owner;*/
 
 	owner = nullptr;
 }

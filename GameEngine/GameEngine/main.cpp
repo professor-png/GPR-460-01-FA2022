@@ -31,8 +31,9 @@ int main(int argc, char* argv[])
     //system.Init();
     system.SetMemoryCheckpoint();
 
-    /*THESE BRACKETS ARE CAUSING SCALAR THING*/
     EngineState engine;
+    //system.SetMemoryCheckpoint();
+
     engine.quit = false;
     engine.renderer = renderer;
     engine.frame = 0;
@@ -43,8 +44,9 @@ int main(int argc, char* argv[])
 
     runMainLoop(&engine);
 
+    engine.world.ShutDown();
     engine.ShutDown();
-    //system.ShutDown();
+    
     system.ShutDown();
     system.GetMemoryCheckpoint();
 

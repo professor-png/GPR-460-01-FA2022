@@ -5,7 +5,7 @@
 struct EngineState;
 //class GameObject;
 
-const int MAX_OBJECTS = 2000;
+const int MAX_OBJECTS = 100;
 
 struct World
 {
@@ -25,6 +25,7 @@ struct World
 	World();
 	~World();
 
+	void ShutDown();
 	void UpdateAll(EngineState* engine);
 
 	bool CreateGameObject(std::string name, Transform transform);

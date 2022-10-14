@@ -20,13 +20,13 @@ RectangleRenderer::RectangleRenderer(int w, int h, Color col)
 
 RectangleRenderer::~RectangleRenderer()
 {
-	ShutDown();
+	//ShutDown();
 }
 
 void RectangleRenderer::ShutDown()
 {
-	if (owner != nullptr)
-		delete owner;
+	/*if (owner != nullptr)
+		delete owner;*/
 
 	owner = nullptr;
 }

@@ -8,13 +8,13 @@ RectangleCollider::RectangleCollider()
 
 RectangleCollider::~RectangleCollider()
 {
-    ShutDown();
+    //ShutDown();
 }
 
 void RectangleCollider::ShutDown()
 {
-    if (owner != nullptr)
-        delete owner;
+    /*if (owner != nullptr)
+        delete owner;*/
 
     owner = nullptr;
 }

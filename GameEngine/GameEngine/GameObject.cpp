@@ -50,25 +50,25 @@ void GameObject::ShutDown()
 {
     if (renderer != nullptr)
     {
-        delete renderer;
+        //delete renderer;
         renderer = nullptr;
     }
 
     if (collider != nullptr)
     {
-        delete collider;
+        //delete collider;
         collider = nullptr;
     }
 
     if (player != nullptr)
     {
-        delete player;
+        //delete player;
         player = nullptr;
     }
 
     if (colorChanger != nullptr)
     {
-        delete colorChanger;
+        //delete colorChanger;
         colorChanger = nullptr;
     }
 }

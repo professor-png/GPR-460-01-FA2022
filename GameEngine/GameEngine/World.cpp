@@ -12,6 +12,11 @@ World::World()
 
 World::~World()
 {
+	ShutDown();
+}
+
+void World::ShutDown()
+{
 	for (PlayerController player : playerControllers)
 	{
 		player.ShutDown();
@@ -43,8 +48,7 @@ void World::UpdateAll(EngineState* engine)
 	for (PlayerController player : playerControllers)
 	{
 		if (player.owner != nullptr)
-			player.Update(engine);
-		//PlayerController::Update(&player, engine);
+			PlayerController::Update(&player, engine);
 	}
 
 	for (int i = 0; i < numActiveRectangleColliders; i++)
@@ -69,8 +73,7 @@ void World::UpdateAll(EngineState* engine)
 	for (RectangleRenderer renderer : rectangleRenderers)
 	{
 		if (renderer.owner != nullptr)
-			renderer.Draw(engine);
-		//RectangleRenderer::Draw(&renderer, engine);
+			RectangleRenderer::Draw(&renderer, engine);
 	}
 
 }
