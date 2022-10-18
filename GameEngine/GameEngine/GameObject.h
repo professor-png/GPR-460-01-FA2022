@@ -10,6 +10,8 @@
 
 class GameObject
 {
+private:
+    static int numUnNamedObjects;
 public:
     GameObject();
     GameObject(const GameObject& gameObject);

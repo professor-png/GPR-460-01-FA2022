@@ -1,9 +1,8 @@
 #pragma once
 
 #include "GameObject.h"
-//#include "EngineState.h"
+
 struct EngineState;
-//class GameObject;
 
 const int MAX_OBJECTS = 100;
 

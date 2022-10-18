@@ -1,9 +1,17 @@
 #include "GameObject.h"
 #include "EngineState.h"
 
+int GameObject::numUnNamedObjects = 0;
+
 GameObject::GameObject()
 {
-    name = "GameObject";
+    if (numUnNamedObjects == 0)
+        name = "GameObject";
+    else
+    {
+        numUnNamedObjects++;
+        name = "GameObject" + numUnNamedObjects;
+    }
     transform = Transform();
     renderer = nullptr;
     collider = nullptr;

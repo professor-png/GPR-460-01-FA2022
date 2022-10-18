@@ -24,10 +24,20 @@ namespace gpr460
     typedef std::wstring string;
     const gpr460::string K_MESSAGE = L"Do not press K!!!";
     const gpr460::string K_ERROR = L"Error: User pressed k";
+    const gpr460::string MAX_GAME_OBJECTS_ERROR = L"Error: Max number of gameobjects exceded!";
+    const gpr460::string MAX_COLLISION_COLOR_CHANGERS_ERROR = L"Error: Max number of collision color changers exceded!";
+    const gpr460::string MAX_PLAYER_CONTROLLERS_ERROR = L"Error: Max number of player controllers exceded!";
+    const gpr460::string MAX_RECTANGLE_COLLIDERS_ERROR = L"Error: Max number of rectangle colliders exceded!";
+    const gpr460::string MAX_RECTANGLE_RENDERERS_ERROR = L"Error: Max number of rectangle renderers exceded!";
 #else
     typedef std::string string;
     const gpr460::string K_MESSAGE = "Do not press K!!!";
     const gpr460::string K_ERROR = "Error: User pressed k";
+    const gpr460::string MAX_GAME_OBJECTS_ERROR = "Error: Max number of gameobjects exceded!";
+    const gpr460::string MAX_COLLISION_COLOR_CHANGERS_ERROR = "Error: Max number of collision color changers exceded!";
+    const gpr460::string MAX_PLAYER_CONTROLLERS_ERROR = "Error: Max number of player controllers exceded!";
+    const gpr460::string MAX_RECTANGLE_COLLIDERS_ERROR = "Error: Max number of rectangle colliders exceded!";
+    const gpr460::string MAX_RECTANGLE_RENDERERS_ERROR = "Error: Max number of rectangle renderers exceded!";
 #endif
     
 

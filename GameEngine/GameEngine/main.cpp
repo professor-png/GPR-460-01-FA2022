@@ -29,10 +29,10 @@ int main(int argc, char* argv[])
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     //system.Init();
-    system.SetMemoryCheckpoint();
+    //system.SetMemoryCheckpoint();
 
     EngineState engine;
-    //system.SetMemoryCheckpoint();
+    system.SetMemoryCheckpoint();
 
     engine.quit = false;
     engine.renderer = renderer;
@@ -125,21 +125,89 @@ void CreateGameObjects(EngineState* engine)
     // Each create compnent allocates _some_ memory
     //  Memory consumption probably isnt a concern -- but
     //  where do each of our new allocations 
-    
-    engine->world.CreateGameObject("Player", Transform(Vector2(0, 100)));
-    engine->world.CreateGameObject("Collided", Transform(Vector2(100, 0)));
-    engine->world.CreateGameObject("BackGround", Transform(Vector2(200, 300)));
 
-    engine->world.AddPlayerController(0, PlayerController());
-    engine->world.AddRectangleRenderer(0, RectangleRenderer(50, 50, Color(0, 255, 255, 255)));
-    engine->world.AddCollisionColorChanger(0, CollisionColorChanger());
-    engine->world.AddRectangleCollider(0, RectangleCollider());
+    /******** Player *********/
+    if (!engine->world.CreateGameObject("Player", Transform(Vector2(0, 100))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
 
-    engine->world.AddRectangleRenderer(1, RectangleRenderer(50, 50, Color(100, 0, 255, 255)));
-    engine->world.AddRectangleCollider(1, RectangleCollider());
-    engine->world.AddCollisionColorChanger(1, CollisionColorChanger());
+    if (!engine->world.AddPlayerController(0, PlayerController()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_PLAYER_CONTROLLERS_ERROR);
+        engine->quit = true;
+        return;
+    }
 
-    engine->world.AddRectangleRenderer(2, RectangleRenderer(100, 100, Color(100, 255, 100, 255)));
+    if (!engine->world.AddRectangleRenderer(0, RectangleRenderer(50, 50, Color(0, 255, 255, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(0, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(0, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+    /******** Player *********/
+
+    /******** Collider *********/
+    if (!engine->world.CreateGameObject("Collided", Transform(Vector2(100, 0))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(1, RectangleRenderer(50, 50, Color(100, 0, 255, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(1, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(1, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+    /******** Collider *********/
+
+    /******** Background *********/
+    if (!engine->world.CreateGameObject("BackGround", Transform(Vector2(200, 300))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(2, RectangleRenderer(100, 100, Color(100, 255, 100, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+    /******** Background *********/
     
     /************Old Way of creating Game Objects************/
     /*engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
