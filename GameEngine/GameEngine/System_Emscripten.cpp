@@ -23,4 +23,14 @@ namespace gpr460
 	{
 		printf("%s", msg.c_str());
 	}
+	
+	void System::GameStart()
+	{
+		
+	}
+	
+	void System::GameEnd()
+	{
+		
+	}
 }

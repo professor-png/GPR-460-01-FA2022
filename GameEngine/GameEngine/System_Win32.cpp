@@ -21,7 +21,7 @@ namespace gpr460
 			CloseHandle(errorFile);
 	}
 
-	void System::SetMemoryCheckpoint()
+	void System::GameStart()
 	{
 		// when using these calls we can report leaks automatically
 		// however, when memory isnt freed by the end of the program, but this is not a leak so it will report useless info
@@ -32,7 +32,7 @@ namespace gpr460
 		_CrtMemCheckpoint(&memState);
 	}
 
-	void System::GetMemoryCheckpoint()
+	void System::GameEnd()
 	{
 		// this will output our leaks not SDL's leaks
 		_CrtMemDumpAllObjectsSince(&memState);

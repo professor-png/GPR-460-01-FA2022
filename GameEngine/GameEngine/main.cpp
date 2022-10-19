@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
     //system.SetMemoryCheckpoint();
 
     EngineState engine;
-    system.SetMemoryCheckpoint();
+    system.GameStart();
 
     engine.quit = false;
     engine.renderer = renderer;
@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     engine.ShutDown();
     
     system.ShutDown();
-    system.GetMemoryCheckpoint();
+    system.GameEnd();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -127,9 +127,10 @@ void CreateGameObjects(EngineState* engine)
     //  where do each of our new allocations 
 
     /******** Player *********/
-    if (!engine->world.CreateGameObject("Player", Transform(Vector2(0, 100))))
+    if (!engine->world.CreateGameObject("Player", Transform(Vector2(300, 300))))
     {
         engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
         engine->quit = true;
         return;
     }
@@ -137,6 +138,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddPlayerController(0, PlayerController()))
     {
         engine->system->ErrorMessage(gpr460::MAX_PLAYER_CONTROLLERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_PLAYER_CONTROLLERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -144,6 +146,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddRectangleRenderer(0, RectangleRenderer(50, 50, Color(0, 255, 255, 255))))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -151,6 +154,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddCollisionColorChanger(0, CollisionColorChanger()))
     {
         engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -158,6 +162,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddRectangleCollider(0, RectangleCollider()))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -167,6 +172,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.CreateGameObject("Collided", Transform(Vector2(100, 0))))
     {
         engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
         engine->quit = true;
         return;
     }
@@ -174,6 +180,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddRectangleRenderer(1, RectangleRenderer(50, 50, Color(100, 0, 255, 255))))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -181,6 +188,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddRectangleCollider(1, RectangleCollider()))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -188,6 +196,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddCollisionColorChanger(1, CollisionColorChanger()))
     {
         engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -197,6 +206,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.CreateGameObject("BackGround", Transform(Vector2(200, 300))))
     {
         engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
         engine->quit = true;
         return;
     }
@@ -204,6 +214,7 @@ void CreateGameObjects(EngineState* engine)
     if (!engine->world.AddRectangleRenderer(2, RectangleRenderer(100, 100, Color(100, 255, 100, 255))))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
         engine->quit = true;
         return;
     }

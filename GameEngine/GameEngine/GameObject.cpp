@@ -10,7 +10,7 @@ GameObject::GameObject()
     else
     {
         numUnNamedObjects++;
-        name = "GameObject" + numUnNamedObjects;
+        name = "GameObject" + std::to_string(numUnNamedObjects);
     }
     transform = Transform();
     renderer = nullptr;

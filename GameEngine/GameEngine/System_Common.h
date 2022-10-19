@@ -52,10 +52,10 @@ namespace gpr460
     public:
         void Init();
         void ShutDown();
-        void SetMemoryCheckpoint();
-        void GetMemoryCheckpoint();
         void ErrorMessage(const string& msg);
         void LogToErrorFile(const string& msg);
+        void GameStart();
+        void GameEnd();
 
     };
 }
