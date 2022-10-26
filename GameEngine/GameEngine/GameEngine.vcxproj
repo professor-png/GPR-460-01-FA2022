@@ -149,6 +149,7 @@
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="RectangleRenderer.h" />
+    <ClInclude Include="StackAllocator.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="System_Common.h" />
     <ClInclude Include="System_Win32.h" />

@@ -1,0 +1,96 @@
+struct Vector3
+{
+	float x, y, z;
+	
+	void print()
+	{
+		std::cout << "&position: " << this << std::endl;
+		std::cout << "(x, y, z): (" << x << ", " << y << ", " << z << ")\n";
+	}
+};
+
+class StackAllocator
+{
+private:
+	char* buffer;
+	char* base;
+public:
+	StackAllocator()
+	{
+		buffer = new char[1024 * 1024 * 32];
+		base = buffer;
+	}
+	
+	void* alloc(size_t size)
+	{
+		
+	}
+}
+
+int main ()
+{
+	//to allocate some memory
+	Vector3* position;
+	{
+		size_t sizeToAllocate = sizeof(Vector3);
+		void* allocationPoint = base;
+		
+		//TODO: Make sure we're not writting past the end of the stack
+		//if (base + sizeToAllocate > buffer + stackSize) return nullptr;
+		base += sizeToAllocate;
+		position = (Vector3*)allocationPoint;
+	}
+	
+	Vector3* position2;
+	{
+		size_t sizeToAllocate = sizeof(Vector3);
+		void* allocationPoint = base;
+		
+		//TODO: Make sure we're not writting past the end of the stack
+		//if (base + sizeToAllocate > buffer + stackSize) return nullptr;
+		base += sizeToAllocate;
+		position = (Vector3*)allocationPoint;
+	}
+	
+	//array allocation
+	int arrayCount = 32;
+	Vector3* manyPositions;
+	{
+		size_t sizeToAllocate = sizeof(Vector3) * 32;
+		void* allocationPoint = base;
+		
+		//TODO: Make sure we're not writting past the end of the stack
+		//if (base + sizeToAllocate > buffer + stackSize) return nullptr;
+		base += sizeToAllocate;
+		position = (Vector3*)allocationPoint;
+	}
+	
+	for (int i = 0; i < arrayCount; i++)
+	{
+		manyPositions[i].x = i + 10;
+		manyPositions[i].y = i + 20;
+		manyPositions[i].z = i + 30;
+		manyPositions[i].print();
+	}
+	
+	position->x = 20;
+	position->y = 50;
+	position->z = 200;
+	
+	position2->x = 10;
+	position2->y = 85;
+	position2->z = 150;
+	
+	position->print();
+	position2->print();
+	
+	// free *everything*
+	base = buffer;
+	
+	// normally, we have two options for allocations,
+	//   *Stack: everything is deallocated as soon as it goes out of scope,
+	//			so no chance to access invalid memory (unless you're trying to)
+	//   *Heap: Manually allocate, manually deallocate. 1 new <-> 1 delete.
+	//			possible to access invalid memory, so be careful!
+	//   *Our Stack Allocator: Manually allocate, *automatic* deallocate
+}
