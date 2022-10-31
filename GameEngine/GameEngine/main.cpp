@@ -1,8 +1,7 @@
 // Add your System.h include file here
 #include "System.h"
 #include "EngineState.h"
-//#include "GameObject.h"
-//#include "World.h"
+#include "StackAllocator.h"
 
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
@@ -21,15 +20,20 @@ int main(int argc, char* argv[])
     gpr460::System system;
     system.Init();
 
-    //int* leak = DBG_NEW int[4096];
-
     SDL_Init(SDL_INIT_VIDEO);
 
     window = SDL_CreateWindow("SDL2 Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    //system.Init();
-    //system.SetMemoryCheckpoint();
+    StackAllocator stack;
+    Vector2* pt;
+
+    pt = stack.alloc<Vector2>();
+
+    if (pt == nullptr)
+        std::cout << "null\n";
+    else
+        std::cout << "not null\n";
 
     EngineState engine;
     system.GameStart();

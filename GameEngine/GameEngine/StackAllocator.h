@@ -14,14 +14,21 @@ public:
         base(buffer)
     {}
 
+    ~StackAllocator()
+    {
+        clear();
+    }
+
     template <typename T>
     T* alloc()
     {
         size_t sizeToAllocate = sizeof(T);
         void* allocationPoint = base;
 
+        if (base + sizeToAllocate > buffer + STACK_SIZE)
+            return nullptr;
         base += sizeToAllocate;
-        return allocationPoint;
+        return (T*)allocationPoint;
     }
 
     template <typename T>
@@ -30,8 +37,10 @@ public:
         size_t sizeToAllocate = sizeof(T) * arrayCount;
         void* allocationPoint = base;
 
+        if (base + sizeToAllocate > buffer + STACK_SIZE)
+            return nullptr;
         base += sizeToAllocate;
-        return allocationPoint;
+        return (T*)allocationPoint;
     }
 
     void clear()
