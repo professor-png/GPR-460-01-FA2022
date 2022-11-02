@@ -36,7 +36,7 @@ public:
     void Update(EngineState* engine);
 
 protected:
-    std::string name;
+    std::string name = "";
     Transform transform;
     RectangleRenderer* renderer;
     RectangleCollider* collider;

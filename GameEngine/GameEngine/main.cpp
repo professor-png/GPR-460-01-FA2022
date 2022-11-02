@@ -32,8 +32,10 @@ int main(int argc, char* argv[])
     pt = stack.alloc<Vector2>(5);
     pt[1] = Vector2(50, 10);
 
-    gameO = stack.alloc<GameObject>(5);
-    gameO[0] = GameObject("Player", Transform(Vector2(0, 100)));
+    gameO = (GameObject*)stack.alloc<GameObject>(5);
+    std::cout << &gameO << " object\n";
+    gameO[0].SetName("t");
+    //std::cout << gameO->GetTransform()->position.x << std::endl;
 
     if (pt == nullptr)
         std::cout << "null\n";
@@ -43,12 +45,12 @@ int main(int argc, char* argv[])
         std::cout << pt[1].x << " " << pt[1].y << std::endl;
     }
 
-    if (gameO == nullptr)
+    /*if (gameO == nullptr)
         std::cout << "not object\n";
     else
     {
         std::cout << gameO[0].GetName() << " object\n";
-    }
+    }*/
 
     EngineState engine;
     system.GameStart();
