@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
+#include "StackAllocator.h"
 class GameObject;
 struct World;
 
@@ -13,6 +14,7 @@ struct EngineState
     gpr460::System* system = nullptr;
     std::vector<GameObject*> gameObjects;
     World world;
+    StackAllocator objectPool;
     Uint32 frameStart = 0;
     bool quit = false;
     int frame = 0;
