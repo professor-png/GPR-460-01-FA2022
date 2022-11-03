@@ -37,6 +37,8 @@ int main(int argc, char* argv[])
 
     gameO = stack.alloc<GameObject>();
     std::cout << &gameO << "\n";
+    //*gameO = GameObject();
+    //gameO->SetName("player");
     gameO = new GameObject("Player", Transform(Vector2(0, 100)));
     std::cout << &gameO << "\n";
     //std::cout << gameO->GetTransform()->position.x << std::endl;
@@ -54,7 +56,7 @@ int main(int argc, char* argv[])
     else
     {
         std::cout << gameO->GetName() << " object\n";
-        //delete gameO;
+        delete gameO;
     }
     stack.clear();
 

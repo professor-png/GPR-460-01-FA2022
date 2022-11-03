@@ -23,12 +23,12 @@ public:
     T* alloc()
     {
         size_t sizeToAllocate = sizeof(T);
-        void* allocationPoint = base;
+        T* allocationPoint = (T*)base;
 
         if (base + sizeToAllocate > buffer + STACK_SIZE)
             return nullptr;
         base += sizeToAllocate;
-        return (T*)allocationPoint;
+        return allocationPoint;
     }
 
     template <typename T>
