@@ -1,6 +1,6 @@
 #pragma once
 
-const int STACK_SIZE = 1024 * 1024 * 32;
+const int STACK_SIZE = 1024 * 1024 * 5;
 
 class StackAllocator
 {

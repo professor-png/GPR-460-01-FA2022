@@ -25,6 +25,9 @@ int main(int argc, char* argv[])
     window = SDL_CreateWindow("SDL2 Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+    EngineState engine;
+    system.GameStart();
+
     StackAllocator stack;
     Vector2* pt;
     GameObject* gameO;
@@ -32,9 +35,10 @@ int main(int argc, char* argv[])
     pt = stack.alloc<Vector2>(5);
     pt[1] = Vector2(50, 10);
 
-    gameO = (GameObject*)stack.alloc<GameObject>(5);
-    std::cout << &gameO << " object\n";
-    gameO[0].SetName("t");
+    gameO = stack.alloc<GameObject>();
+    std::cout << &gameO << "\n";
+    gameO = new GameObject("Player", Transform(Vector2(0, 100)));
+    std::cout << &gameO << "\n";
     //std::cout << gameO->GetTransform()->position.x << std::endl;
 
     if (pt == nullptr)
@@ -45,15 +49,15 @@ int main(int argc, char* argv[])
         std::cout << pt[1].x << " " << pt[1].y << std::endl;
     }
 
-    /*if (gameO == nullptr)
+    if (gameO == nullptr)
         std::cout << "not object\n";
     else
     {
-        std::cout << gameO[0].GetName() << " object\n";
-    }*/
+        std::cout << gameO->GetName() << " object\n";
+        //delete gameO;
+    }
+    stack.clear();
 
-    EngineState engine;
-    system.GameStart();
 
     engine.quit = false;
     engine.renderer = renderer;
