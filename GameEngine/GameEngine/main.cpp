@@ -35,12 +35,13 @@ int main(int argc, char* argv[])
     pt = stack.alloc<Vector2>(5);
     pt[1] = Vector2(50, 10);
 
-    gameO = stack.alloc<GameObject>();
-    std::cout << &gameO << "\n";
+    gameO = (GameObject*)stack.alloc<GameObject>();
+    gameO = new (gameO) GameObject("Player", Transform(Vector2(0, 100)));
+    std::cout << gameO << "\n";
     //*gameO = GameObject();
     //gameO->SetName("player");
-    gameO = new GameObject("Player", Transform(Vector2(0, 100)));
-    std::cout << &gameO << "\n";
+    //gameO = new GameObject("Player", Transform(Vector2(0, 100)));
+    //std::cout << gameO << "\n";
     //std::cout << gameO->GetTransform()->position.x << std::endl;
 
     if (pt == nullptr)
@@ -56,7 +57,7 @@ int main(int argc, char* argv[])
     else
     {
         std::cout << gameO->GetName() << " object\n";
-        delete gameO;
+        //delete gameO;
     }
     stack.clear();
 
