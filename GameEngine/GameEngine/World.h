@@ -32,5 +32,5 @@ struct World
 	bool AddRectangleRenderer(int objInex, RectangleRenderer renderer);
 	bool AddRectangleCollider(int objInex, RectangleCollider collider);
 	bool AddCollisionColorChanger(int objIndex, CollisionColorChanger colorChanger);
-	
+
 };

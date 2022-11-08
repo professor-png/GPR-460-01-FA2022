@@ -46,5 +46,6 @@ public:
     void clear()
     {
         base = buffer;
+        std::cout << "Clear\n";
     }
 };

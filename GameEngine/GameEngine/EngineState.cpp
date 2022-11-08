@@ -10,6 +10,7 @@ EngineState::~EngineState()
 
 void EngineState::ShutDown()
 {
+    //objectPool.clear();
     for (auto obj : gameObjects)
     {
         delete obj;
@@ -22,10 +23,10 @@ void EngineState::ShutDown()
 
 void EngineState::Update(EngineState* engine)
 {
-    //for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
-    //{
-    //    gameObjects[i]->Update(engine);
-    //}
+    for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
+    {
+        gameObjects[i]->Update(engine);
+    }
 
     world.UpdateAll(engine);
 }
