@@ -117,6 +117,7 @@ void frameStep(void* arg)
     engine->frame++;
     engine->frameStart = now;
 
+    engine->gameObjects.clear();
     engine->objectPool.clear();
 
     while (SDL_PollEvent(&event))
@@ -152,7 +153,7 @@ Uint32 GetTicks()
 
 void FrameAllocator(EngineState* engine, int x)
 {
-    engine->gameObjects.clear();
+    //engine->gameObjects.clear();
     //engine->objectPool.clear();
 
     GameObject* tmpObj;

@@ -17,6 +17,7 @@ public:
     ~StackAllocator()
     {
         clear();
+        delete buffer;
     }
 
     template <typename T>
@@ -46,6 +47,5 @@ public:
     void clear()
     {
         base = buffer;
-        std::cout << "Clear\n";
     }
 };
