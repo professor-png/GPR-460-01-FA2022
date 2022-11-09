@@ -2,6 +2,10 @@
 #include "GameObject.h"
 #include "World.h"
 
+EngineState::EngineState()
+{
+    gameObjects = new std::vector<GameObject*>();
+}
 
 EngineState::~EngineState()
 {
@@ -11,11 +15,18 @@ EngineState::~EngineState()
 void EngineState::ShutDown()
 {
     //objectPool.clear();
-    for (auto obj : gameObjects)
+    if (gameObjects != nullptr)
     {
-        delete obj;
+        for (auto& obj : *gameObjects)
+        {
+            obj->~GameObject();
+        }
+        objectPool.clear();
+        gameObjects->clear();
+        delete gameObjects;
+        gameObjects = nullptr;
     }
-    gameObjects.clear();
+
 
     renderer = nullptr;
     system = nullptr;
@@ -23,9 +34,9 @@ void EngineState::ShutDown()
 
 void EngineState::Update(EngineState* engine)
 {
-    for (int i = (int)gameObjects.size() - 1; i >= 0; i--)
+    for (int i = (int)gameObjects->size() - 1; i >= 0; i--)
     {
-        gameObjects[i]->Update(engine);
+        gameObjects->at(i)->Update(engine);
     }
 
     world.UpdateAll(engine);

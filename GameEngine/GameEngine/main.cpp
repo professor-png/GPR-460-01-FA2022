@@ -8,7 +8,7 @@ void handleEvents(void* engine);
 void frameStep(void* arg);
 Uint32 GetTicks();
 
-void FrameAllocator(EngineState* engine, int x);
+void FrameAllocator(EngineState* engine);
 void CreateGameObjects(EngineState* engine);
 
 int main(int argc, char* argv[])
@@ -28,39 +28,6 @@ int main(int argc, char* argv[])
 
     EngineState engine;
     system.GameStart();
-
-    //StackAllocator stack;
-    //Vector2* pt;
-    //GameObject* gameO;
-
-    //pt = stack.alloc<Vector2>(5);
-    //pt[1] = Vector2(50, 10);
-
-    //gameO = (GameObject*)stack.alloc<GameObject>();
-    //gameO = new (gameO) GameObject("Player", Transform(Vector2(0, 100)));
-    //std::cout << gameO << "\n";
-    ////*gameO = GameObject();
-    ////gameO->SetName("player");
-    ////gameO = new GameObject("Player", Transform(Vector2(0, 100)));
-    ////std::cout << gameO << "\n";
-    ////std::cout << gameO->GetTransform()->position.x << std::endl;
-
-    //if (pt == nullptr)
-    //    std::cout << "null\n";
-    //else
-    //{
-    //    std::cout << "not null\n";
-    //    std::cout << pt[1].x << " " << pt[1].y << std::endl;
-    //}
-
-    //if (gameO == nullptr)
-    //    std::cout << "not object\n";
-    //else
-    //{
-    //    std::cout << gameO->GetName() << " object\n";
-    //    //delete gameO;
-    //}
-    //stack.clear();
 
     engine.quit = false;
     engine.renderer = renderer;
@@ -117,7 +84,11 @@ void frameStep(void* arg)
     engine->frame++;
     engine->frameStart = now;
 
-    engine->gameObjects.clear();
+    for (auto& obj : *engine->gameObjects)
+    {
+        obj->~GameObject();
+    }
+    engine->gameObjects->clear();
     engine->objectPool.clear();
 
     while (SDL_PollEvent(&event))
@@ -140,7 +111,7 @@ void frameStep(void* arg)
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(engine->renderer);
     
-    FrameAllocator(engine, 50);
+    FrameAllocator(engine);
     engine->Update(engine);
 
     SDL_RenderPresent(engine->renderer);
@@ -151,7 +122,7 @@ Uint32 GetTicks()
     return SDL_GetTicks();
 }
 
-void FrameAllocator(EngineState* engine, int x)
+void FrameAllocator(EngineState* engine)
 {
     //engine->gameObjects.clear();
     //engine->objectPool.clear();
@@ -161,42 +132,42 @@ void FrameAllocator(EngineState* engine, int x)
     RectangleCollider* tmpCollider;
     CollisionColorChanger* tmpColor;
 
-    x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
+    int x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
     int x2 = (SDL_cosf(engine->frame / 100.0f) * 100.0f) + 100;
 
     /*OBJECT 1*/
     tmpObj = (GameObject*)engine->objectPool.alloc<GameObject>();
     tmpObj = new (tmpObj) GameObject("Obj1", Transform(Vector2(x, 200)));
-    engine->gameObjects.push_back(tmpObj);
+    engine->gameObjects->push_back(tmpObj);
 
     tmpRenderer = (RectangleRenderer*)engine->objectPool.alloc<RectangleRenderer>();
     tmpRenderer = new (tmpRenderer) RectangleRenderer(50, 50, Color(255, 0, 0, 255));
-    engine->gameObjects[0]->CreateRenderer(tmpRenderer);
+    engine->gameObjects->at(0)->CreateRenderer(tmpRenderer);
 
     tmpCollider = (RectangleCollider*)engine->objectPool.alloc<RectangleCollider>();
     tmpCollider = new (tmpCollider) RectangleCollider();
-    engine->gameObjects[0]->CreateCollider(tmpCollider);
+    engine->gameObjects->at(0)->CreateCollider(tmpCollider);
 
     tmpColor = (CollisionColorChanger*)engine->objectPool.alloc<CollisionColorChanger>();
     tmpColor = new (tmpColor) CollisionColorChanger();
-    engine->gameObjects[0]->CreateColliderColorChanger(tmpColor);
+    engine->gameObjects->at(0)->CreateColliderColorChanger(tmpColor);
 
     /*OBJECT 2*/
     tmpObj = (GameObject*)engine->objectPool.alloc<GameObject>();
     tmpObj = new (tmpObj) GameObject("Obj2", Transform(Vector2(x2, 200)));
-    engine->gameObjects.push_back(tmpObj);
+    engine->gameObjects->push_back(tmpObj);
 
     tmpRenderer = (RectangleRenderer*)engine->objectPool.alloc<RectangleRenderer>();
     tmpRenderer = new (tmpRenderer) RectangleRenderer(50, 50, Color(100, 100, 200, 255));
-    engine->gameObjects[1]->CreateRenderer(tmpRenderer);
+    engine->gameObjects->at(1)->CreateRenderer(tmpRenderer);
 
     tmpCollider = (RectangleCollider*)engine->objectPool.alloc<RectangleCollider>();
     tmpCollider = new (tmpCollider) RectangleCollider();
-    engine->gameObjects[1]->CreateCollider(tmpCollider);
+    engine->gameObjects->at(1)->CreateCollider(tmpCollider);
 
     tmpColor = (CollisionColorChanger*)engine->objectPool.alloc<CollisionColorChanger>();
     tmpColor = new (tmpColor) CollisionColorChanger();
-    engine->gameObjects[1]->CreateColliderColorChanger(tmpColor);
+    engine->gameObjects->at(1)->CreateColliderColorChanger(tmpColor);
 }
 
 /* Using Structure of Arrays all components end up next to eachother in memory*/

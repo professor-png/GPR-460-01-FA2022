@@ -109,7 +109,7 @@ void GameObject::Update(EngineState* engine)
     if (collider != nullptr)
     {
         bool collision = false;
-        for (auto obj : engine->gameObjects)
+        for (auto obj : *engine->gameObjects)
         {
             if (obj->name != name && obj->collider != nullptr)
             {
