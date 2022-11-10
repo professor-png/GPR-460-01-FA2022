@@ -135,8 +135,8 @@ void FrameAllocator(EngineState* engine)
     for (i = 0; i < engine->world.numActiveRectangleColliders; i++)
         if (engine->world.rectangleColliders[i].GetColliding())
         {
-            collidersColliding[j] = engine->world.rectangleColliders[j];
-            collidingPositions[j] = engine->world.gameObjects[j].GetTransform()->position;
+            collidersColliding[j] = engine->world.rectangleColliders[i];
+            collidingPositions[j] = engine->world.rectangleColliders[i].owner->GetTransform()->position;
             j++;
         }
 
