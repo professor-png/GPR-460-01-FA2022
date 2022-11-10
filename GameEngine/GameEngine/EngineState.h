@@ -12,7 +12,7 @@ struct EngineState
 {
     SDL_Renderer* renderer = nullptr;
     gpr460::System* system = nullptr;
-    std::vector<GameObject*>* gameObjects = nullptr;
+    std::vector<GameObject*> gameObjects;
     World world;
     StackAllocator objectPool;
     Uint32 frameStart = 0;

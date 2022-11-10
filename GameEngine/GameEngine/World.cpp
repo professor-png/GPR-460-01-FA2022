@@ -58,14 +58,19 @@ void World::UpdateAll(EngineState* engine)
 			if (collider.owner != nullptr && rectangleColliders[i].owner != nullptr && rectangleColliders[i].owner->GetName() != collider.owner->GetName())
 			{
 				rectangleColliders[i].SetColliding(rectangleColliders[i].owner->GetCollider()->CheckCollisions(collider.owner->GetCollider()));
+
+				if (rectangleColliders[i].GetColliding())
+					break;
 			}
 		}
 	}
-
+	
 	for (CollisionColorChanger colorChanger : collisionColorChangers)
 	{
 		if (colorChanger.owner != nullptr && colorChanger.owner->GetCollider() != nullptr && colorChanger.owner->GetCollider()->GetColliding())
+		{
 			CollisionColorChanger::Update(&colorChanger, Color(0, 0, 255, 255));
+		}
 		else if (colorChanger.owner != nullptr && colorChanger.owner->GetCollider() != nullptr && !colorChanger.owner->GetCollider()->GetColliding())
 			CollisionColorChanger::Update(&colorChanger, colorChanger.owner->GetRenderer()->originalColor);
 	}
@@ -137,6 +142,7 @@ bool World::AddCollisionColorChanger(int objIndex, CollisionColorChanger colorCh
 	{
 		collisionColorChangers[numActiveColorChangers] = colorChanger;
 		gameObjects[objIndex].CreateColliderColorChanger(&collisionColorChangers[numActiveColorChangers]);
+		std::cout << collisionColorChangers[numActiveColorChangers].owner->GetName() << std::endl;
 		numActiveColorChangers++;
 	}
 	return true;

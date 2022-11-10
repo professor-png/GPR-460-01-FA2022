@@ -84,13 +84,6 @@ void frameStep(void* arg)
     engine->frame++;
     engine->frameStart = now;
 
-    for (auto& obj : *engine->gameObjects)
-    {
-        obj->~GameObject();
-    }
-    engine->gameObjects->clear();
-    engine->objectPool.clear();
-
     while (SDL_PollEvent(&event))
     {
         if (event.type == SDL_QUIT)
@@ -124,50 +117,31 @@ Uint32 GetTicks()
 
 void FrameAllocator(EngineState* engine)
 {
-    //engine->gameObjects.clear();
-    //engine->objectPool.clear();
+    engine->objectPool.clear();
 
-    GameObject* tmpObj;
-    RectangleRenderer* tmpRenderer;
-    RectangleCollider* tmpCollider;
-    CollisionColorChanger* tmpColor;
+    int i, numCollisions = 0, j = 0;
 
-    int x = (SDL_sinf(engine->frame / 100.0f) * 100.0f) + 200;
-    int x2 = (SDL_cosf(engine->frame / 100.0f) * 100.0f) + 100;
+    for (i = 0; i < engine->world.numActiveRectangleColliders; i++)
+        if (engine->world.rectangleColliders[i].GetColliding())
+            numCollisions++;
 
-    /*OBJECT 1*/
-    tmpObj = (GameObject*)engine->objectPool.alloc<GameObject>();
-    tmpObj = new (tmpObj) GameObject("Obj1", Transform(Vector2(x, 200)));
-    engine->gameObjects->push_back(tmpObj);
+    if (numCollisions == 0)
+        return;
 
-    tmpRenderer = (RectangleRenderer*)engine->objectPool.alloc<RectangleRenderer>();
-    tmpRenderer = new (tmpRenderer) RectangleRenderer(50, 50, Color(255, 0, 0, 255));
-    engine->gameObjects->at(0)->CreateRenderer(tmpRenderer);
+    RectangleCollider* collidersColliding = engine->objectPool.alloc<RectangleCollider>(numCollisions);
 
-    tmpCollider = (RectangleCollider*)engine->objectPool.alloc<RectangleCollider>();
-    tmpCollider = new (tmpCollider) RectangleCollider();
-    engine->gameObjects->at(0)->CreateCollider(tmpCollider);
+    Vector2* collidingPositions = engine->objectPool.alloc<Vector2>(numCollisions);
 
-    tmpColor = (CollisionColorChanger*)engine->objectPool.alloc<CollisionColorChanger>();
-    tmpColor = new (tmpColor) CollisionColorChanger();
-    engine->gameObjects->at(0)->CreateColliderColorChanger(tmpColor);
+    for (i = 0; i < engine->world.numActiveRectangleColliders; i++)
+        if (engine->world.rectangleColliders[i].GetColliding())
+        {
+            collidersColliding[j] = engine->world.rectangleColliders[j];
+            collidingPositions[j] = engine->world.gameObjects[j].GetTransform()->position;
+            j++;
+        }
 
-    /*OBJECT 2*/
-    tmpObj = (GameObject*)engine->objectPool.alloc<GameObject>();
-    tmpObj = new (tmpObj) GameObject("Obj2", Transform(Vector2(x2, 200)));
-    engine->gameObjects->push_back(tmpObj);
-
-    tmpRenderer = (RectangleRenderer*)engine->objectPool.alloc<RectangleRenderer>();
-    tmpRenderer = new (tmpRenderer) RectangleRenderer(50, 50, Color(100, 100, 200, 255));
-    engine->gameObjects->at(1)->CreateRenderer(tmpRenderer);
-
-    tmpCollider = (RectangleCollider*)engine->objectPool.alloc<RectangleCollider>();
-    tmpCollider = new (tmpCollider) RectangleCollider();
-    engine->gameObjects->at(1)->CreateCollider(tmpCollider);
-
-    tmpColor = (CollisionColorChanger*)engine->objectPool.alloc<CollisionColorChanger>();
-    tmpColor = new (tmpColor) CollisionColorChanger();
-    engine->gameObjects->at(1)->CreateColliderColorChanger(tmpColor);
+    for (i = 0; i < numCollisions; i++)
+        std::cout << collidingPositions[i].x << " " << collidingPositions[i].y << std::endl;
 }
 
 /* Using Structure of Arrays all components end up next to eachother in memory*/
@@ -203,18 +177,18 @@ void CreateGameObjects(EngineState* engine)
         return;
     }
 
-    if (!engine->world.AddCollisionColorChanger(0, CollisionColorChanger()))
-    {
-        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
-        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
-        engine->quit = true;
-        return;
-    }
-
     if (!engine->world.AddRectangleCollider(0, RectangleCollider()))
     {
         engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
         engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(0, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
         engine->quit = true;
         return;
     }
@@ -271,7 +245,136 @@ void CreateGameObjects(EngineState* engine)
         return;
     }
     /******** Background *********/
-    
+
+    /******** Extra Objs ********/
+    if (!engine->world.CreateGameObject("Obj1", Transform(Vector2(100, 200))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(3, RectangleRenderer(50, 50, Color(255, 0, 0, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(3, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(3, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.CreateGameObject("Obj2", Transform(Vector2(25, 200))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(4, RectangleRenderer(50, 50, Color(100, 255, 50, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(4, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(4, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.CreateGameObject("Obj3", Transform(Vector2(100, 275))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(5, RectangleRenderer(50, 50, Color(255, 0, 0, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(5, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(5, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.CreateGameObject("Obj4", Transform(Vector2(25, 275))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_GAME_OBJECTS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleRenderer(6, RectangleRenderer(50, 50, Color(100, 255, 50, 255))))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_RENDERERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddRectangleCollider(6, RectangleCollider()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_RECTANGLE_COLLIDERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
+    if (!engine->world.AddCollisionColorChanger(6, CollisionColorChanger()))
+    {
+        engine->system->ErrorMessage(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->system->LogToErrorFile(gpr460::MAX_COLLISION_COLOR_CHANGERS_ERROR);
+        engine->quit = true;
+        return;
+    }
+
     /************Old Way of creating Game Objects************/
     /*engine->gameObjects.push_back(new GameObject("Player", Transform(Vector2(0, 100))));
     engine->gameObjects.push_back(new GameObject("Collided", Transform(Vector2(100, 0))));

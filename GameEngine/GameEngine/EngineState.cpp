@@ -4,7 +4,7 @@
 
 EngineState::EngineState()
 {
-    gameObjects = new std::vector<GameObject*>();
+
 }
 
 EngineState::~EngineState()
@@ -15,17 +15,12 @@ EngineState::~EngineState()
 void EngineState::ShutDown()
 {
     //objectPool.clear();
-    if (gameObjects != nullptr)
+    for (auto obj : gameObjects)
     {
-        for (auto& obj : *gameObjects)
-        {
-            obj->~GameObject();
-        }
-        objectPool.clear();
-        gameObjects->clear();
-        delete gameObjects;
-        gameObjects = nullptr;
+        obj->~GameObject();
     }
+    objectPool.clear();
+    gameObjects.clear();
 
 
     renderer = nullptr;
@@ -34,10 +29,10 @@ void EngineState::ShutDown()
 
 void EngineState::Update(EngineState* engine)
 {
-    for (int i = (int)gameObjects->size() - 1; i >= 0; i--)
+    /*for (int i = (int)gameObjects->size() - 1; i >= 0; i--)
     {
         gameObjects->at(i)->Update(engine);
-    }
+    }*/
 
     world.UpdateAll(engine);
 }
