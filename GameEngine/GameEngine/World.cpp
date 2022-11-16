@@ -147,3 +147,61 @@ bool World::AddCollisionColorChanger(int objIndex, CollisionColorChanger colorCh
 	}
 	return true;
 }
+
+// static functions
+void World::AddPlayerController(GameObject* go, std::istream& fin)
+{
+
+}
+
+void World::AddRectangleRenderer(GameObject* go, std::istream& fin)
+{
+
+}
+
+void World::AddRectangleCollider(GameObject* go, std::istream& fin)
+{
+
+}
+
+void World::AddCollisionColorChanger(GameObject* go, std::istream& fin)
+{
+
+}
+
+void World::LoadLevel(std::string fileName)
+{
+	std::ifstream fin;
+	std::string tmp;
+
+	std::unordered_map<int, World::compFn> componentMap;
+
+	componentMap[CompId::ColliderId] = AddRectangleCollider;
+	componentMap[CompId::RendererId] = AddRectangleRenderer;
+	componentMap[CompId::PlayerControllerId] = AddPlayerController;
+	componentMap[CompId::ColorChangerId] = AddCollisionColorChanger;
+
+	fin.open(fileName);
+
+	while (!fin.eof())
+	{
+		std::getline(fin, tmp);
+		
+		std::istringstream line(tmp);
+		ReadLine(line);
+
+	}
+	fin.close();
+}
+
+void World::ReadLine(std::istream& line)
+{
+	std::string tmp, name;
+	int x, y, id;
+
+	line >> name;
+	line.ignore(100, '[');
+	line >> x >> y >> tmp;
+
+	CreateGameObject(name, Transform(Vector2(x, y)));
+}

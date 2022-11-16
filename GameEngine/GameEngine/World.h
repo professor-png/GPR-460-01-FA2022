@@ -1,13 +1,29 @@
 #pragma once
 
 #include "GameObject.h"
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <string>
+#include <unordered_map>
 
 struct EngineState;
 
 const int MAX_OBJECTS = 100;
+const int NUM_COMPONENTS = 4;
+
+enum CompId
+{
+	ColliderId = 'COLL',
+	RendererId = 'REND',
+	PlayerControllerId = 'PCON',
+	ColorChangerId = 'COLC',
+};
 
 struct World
 {
+	typedef void (*compFn)(GameObject* go, std::istream& fin);
+
 	int numActiveObjects = 0;
 	int numActivePlayerControllers = 0;
 	int numActiveRectangleRenderers = 0;
@@ -32,5 +48,13 @@ struct World
 	bool AddRectangleRenderer(int objInex, RectangleRenderer renderer);
 	bool AddRectangleCollider(int objInex, RectangleCollider collider);
 	bool AddCollisionColorChanger(int objIndex, CollisionColorChanger colorChanger);
+	
+	static void AddPlayerController(GameObject* go, std::istream& fin);
+	static void AddRectangleRenderer(GameObject* go, std::istream& fin);
+	static void AddRectangleCollider(GameObject* go, std::istream& fin);
+	static void AddCollisionColorChanger(GameObject* go, std::istream& fin);
 
+
+	void LoadLevel(std::string fileName);
+	void ReadLine(std::istream& line);
 };

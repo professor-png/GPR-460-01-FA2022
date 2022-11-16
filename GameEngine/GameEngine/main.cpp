@@ -35,7 +35,8 @@ int main(int argc, char* argv[])
     engine.frameStart = GetTicks();
     engine.system = &system;
 
-    CreateGameObjects(&engine);
+    //CreateGameObjects(&engine);
+    engine.world.LoadLevel("level0.dat");
 
     runMainLoop(&engine);
 
