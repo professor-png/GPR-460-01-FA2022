@@ -22,8 +22,11 @@ enum CompId
 
 struct World
 {
-	typedef void (*compFn)(GameObject* go, std::istream& fin);
+private:
+	typedef void (*compFn)(World* world, GameObject* go, std::istream& fin);
+	std::unordered_map<int, World::compFn> componentMap;
 
+public:
 	int numActiveObjects = 0;
 	int numActivePlayerControllers = 0;
 	int numActiveRectangleRenderers = 0;
@@ -49,10 +52,11 @@ struct World
 	bool AddRectangleCollider(int objInex, RectangleCollider collider);
 	bool AddCollisionColorChanger(int objIndex, CollisionColorChanger colorChanger);
 	
-	static void AddPlayerController(GameObject* go, std::istream& fin);
-	static void AddRectangleRenderer(GameObject* go, std::istream& fin);
-	static void AddRectangleCollider(GameObject* go, std::istream& fin);
-	static void AddCollisionColorChanger(GameObject* go, std::istream& fin);
+	GameObject* LoadGameObject(std::string name, Transform transform);
+	static void AddPlayerController(World* world, GameObject* go, std::istream& fin);
+	static void AddRectangleRenderer(World* world, GameObject* go, std::istream& fin);
+	static void AddRectangleCollider(World* world, GameObject* go, std::istream& fin);
+	static void AddCollisionColorChanger(World* world, GameObject* go, std::istream& fin);
 
 
 	void LoadLevel(std::string fileName);
