@@ -235,14 +235,13 @@ void World::LoadLevel(std::string fileName)
 	{
 		std::getline(fin, tmp);
 		
-		if ((tmp[0] == '/' && tmp[1] == '/') || tmp == "")
+		if (tmp != "")
 		{
-			// When I flip the signs I get a assertion error so it gets to be in the else
-		}
-		else
-		{
-			std::istringstream line(tmp);
-			ReadLine(line);
+			if ((tmp[0] != '/' && tmp[1] != '/'))
+			{
+				std::istringstream line(tmp);
+				ReadLine(line);
+			}
 		}
 	}
 	fin.close();
