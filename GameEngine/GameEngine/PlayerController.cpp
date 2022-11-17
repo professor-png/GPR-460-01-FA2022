@@ -26,22 +26,22 @@ void PlayerController::Update(EngineState* engine)
 
     if (state[SDL_SCANCODE_RIGHT])
     {
-        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x + 1, owner->GetTransform()->position.y);
+        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x + speed, owner->GetTransform()->position.y);
     }
 
     if (state[SDL_SCANCODE_LEFT])
     {
-        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x - 1, owner->GetTransform()->position.y);
+        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x - speed, owner->GetTransform()->position.y);
     }
 
     if (state[SDL_SCANCODE_UP])
     {
-        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x, owner->GetTransform()->position.y - 1);
+        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x, owner->GetTransform()->position.y - speed);
     }
 
     if (state[SDL_SCANCODE_DOWN])
     {
-        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x, owner->GetTransform()->position.y + 1);
+        owner->GetTransform()->position = Vector2(owner->GetTransform()->position.x, owner->GetTransform()->position.y + speed);
     }
 }
 

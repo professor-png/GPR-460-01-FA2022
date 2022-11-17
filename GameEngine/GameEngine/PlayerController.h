@@ -7,7 +7,7 @@ class GameObject;
 class PlayerController
 {
 private:
-
+	int speed = 10;
 
 public:
 	PlayerController();

@@ -157,6 +157,7 @@ GameObject* World::LoadGameObject(std::string name, Transform transform)
 		gameObjects[numActiveObjects] = GameObject(name, transform);
 		numActiveObjects++;
 	}
+
 	return &gameObjects[numActiveObjects - 1];
 }
 
@@ -177,21 +178,21 @@ void World::AddRectangleRenderer(World* world, GameObject* go, std::istream& fin
 	std::string tmp;
 	int w, h, r, g, b, a;
 
-	fin >> tmp; // [
-	//std::cout << tmp << std::endl;
+	fin.ignore(100, '[');
 	fin >> w >> h;
-	fin >> tmp >> tmp; // ] [
+	fin.ignore(100, ']');
+	fin.ignore(100, '[');
 	fin >> r >> g >> b >> a;
-	fin >> tmp; // ]
+	fin.ignore(100, ']');
 	
-	//if (world->numActiveRectangleRenderers == MAX_OBJECTS - 1)
-	//	return;
-	//else
-	//{
-	//	world->rectangleRenderers[world->numActiveRectangleRenderers] = RectangleRenderer(w, h, Color(r, g, b, a));
-	//	go->CreateRenderer(&world->rectangleRenderers[world->numActiveRectangleRenderers]);
-	//	world->numActiveRectangleRenderers++;
-	//}
+	if (world->numActiveRectangleRenderers == MAX_OBJECTS - 1)
+		return;
+	else
+	{
+		world->rectangleRenderers[world->numActiveRectangleRenderers] = RectangleRenderer(w, h, Color(r, g, b, a));
+		go->CreateRenderer(&world->rectangleRenderers[world->numActiveRectangleRenderers]);
+		world->numActiveRectangleRenderers++;
+	}
 }
 
 void World::AddRectangleCollider(World* world, GameObject* go, std::istream& fin)
@@ -218,11 +219,6 @@ void World::AddCollisionColorChanger(World* world, GameObject* go, std::istream&
 	}
 }
 
-// collider id: 1129270348
-// renderer id: 1380273732
-// player controller: 1346588494
-// color changer: 1129270339
-
 void World::LoadLevel(std::string fileName)
 {
 	std::ifstream fin;
@@ -239,9 +235,15 @@ void World::LoadLevel(std::string fileName)
 	{
 		std::getline(fin, tmp);
 		
-		std::istringstream line(tmp);
-		ReadLine(line);
-
+		if ((tmp[0] == '/' && tmp[1] == '/') || tmp == "")
+		{
+			// When I flip the signs I get a assertion error so it gets to be in the else
+		}
+		else
+		{
+			std::istringstream line(tmp);
+			ReadLine(line);
+		}
 	}
 	fin.close();
 	componentMap.clear();
@@ -253,15 +255,14 @@ void World::ReadLine(std::istream& line)
 	int x, y, id;
 
 	line >> name;
+	//std::cout << "name " << name << std::endl;
 	line.ignore(100, '[');
 	line >> x >> y >> tmp;
-	std::cout << name << std::endl;
 	GameObject* obj = LoadGameObject(name, Transform(Vector2(x, y)));
 
 	while (!line.eof())
 	{
 		line >> id;
-		//std::cout << id << std::endl;
 		componentMap[id](this, obj, line);
 	}
 }
