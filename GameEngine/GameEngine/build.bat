@@ -1,2 +1,2 @@
 @echo off
-emcc main.cpp System_Emscripten.cpp CollisionColorChanger.cpp EngineState.cpp GameObject.cpp PlayerController.cpp RectangleCollider.cpp RectangleRenderer.cpp Transform.cpp Vector2.cpp World.cpp -sUSE_SDL=2 -sLEGACY_GL_EMULATION -o html_builds\index.html
+emcc main.cpp System_Emscripten.cpp CollisionColorChanger.cpp EngineState.cpp GameObject.cpp PlayerController.cpp RectangleCollider.cpp RectangleRenderer.cpp Transform.cpp Vector2.cpp World.cpp -sUSE_SDL=2 -sLEGACY_GL_EMULATION -o html_builds\index.html --preload-file level0.dat
