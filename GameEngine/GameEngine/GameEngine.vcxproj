@@ -121,18 +121,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CollisionColorChanger.cpp" />
+    <ClCompile Include="EditorGui.cpp" />
     <ClCompile Include="EngineState.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="include\ImGui\imgui.cpp" />
+    <ClCompile Include="include\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="include\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="include\ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="include\ImGui\imgui_impl_sdlrenderer.cpp" />
+    <ClCompile Include="include\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="include\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="RectangleCollider.cpp" />
@@ -144,8 +154,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionColorChanger.h" />
+    <ClInclude Include="EditorGui.h" />
     <ClInclude Include="EngineState.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="include\ImGui\imconfig.h" />
+    <ClInclude Include="include\ImGui\imgui.h" />
+    <ClInclude Include="include\ImGui\imgui_impl_sdl.h" />
+    <ClInclude Include="include\ImGui\imgui_impl_sdlrenderer.h" />
+    <ClInclude Include="include\ImGui\imgui_internal.h" />
+    <ClInclude Include="include\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="include\ImGui\imstb_textedit.h" />
+    <ClInclude Include="include\ImGui\imstb_truetype.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="RectangleCollider.h" />
     <ClInclude Include="RectangleRenderer.h" />

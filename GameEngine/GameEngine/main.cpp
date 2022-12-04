@@ -2,6 +2,7 @@
 #include "System.h"
 #include "EngineState.h"
 #include "StackAllocator.h"
+#include "EditorGui.h"
 
 void runMainLoop(EngineState* engine);
 void handleEvents(void* engine);
@@ -28,6 +29,15 @@ int main(int argc, char* argv[])
 
     EngineState engine;
     system.GameStart();
+
+    EditorGui gui;
+    gui.InitGui(window, renderer);
+
+    for (int i = 0; i < 1000; i++)
+    {
+        gui.DrawGui();
+        SDL_RenderPresent(renderer);
+    }
 
     engine.quit = false;
     engine.renderer = renderer;
