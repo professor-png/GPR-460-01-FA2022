@@ -40,6 +40,9 @@ int main(int argc, char* argv[])
 
     runMainLoop(&engine);
 
+    //save the game to a file.
+    engine.world.SaveLevel("levelSave.dat");
+
     engine.world.ShutDown();
     engine.ShutDown();
     

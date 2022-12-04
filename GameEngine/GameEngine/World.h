@@ -61,4 +61,5 @@ public:
 
 	void LoadLevel(std::string fileName);
 	void ReadLine(std::istream& line);
+	void SaveLevel(std::string fileName);
 };

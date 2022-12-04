@@ -219,6 +219,42 @@ void World::AddCollisionColorChanger(World* world, GameObject* go, std::istream&
 	}
 }
 
+void World::SaveLevel(std::string filename) 
+{
+	std::ofstream fout;
+	fout.open(filename);
+	for (int i = 0; i < numActiveObjects; i++)
+	{
+		GameObject go = gameObjects[i];
+		fout << go.GetName() << " ";
+		//transform position
+		fout << "[" << go.GetTransform()->position.x << " " << go.GetTransform()->position.y << "]";
+
+		//iterate through each possible component (lol)
+		if (go.GetCollider() != nullptr)
+		{
+			fout << " " << CompId::ColliderId;
+		}
+		if (go.GetRenderer() != nullptr)
+		{
+			fout << " " << CompId::RendererId;
+			fout << " [" << go.GetRenderer()->width << " " << go.GetRenderer()->height << "]";
+			fout << " [" << go.GetRenderer()->color.r << " " << go.GetRenderer()->color.g << " "
+				<< go.GetRenderer()->color.b << " " << go.GetRenderer()->color.a << "]";
+		}
+		if (go.GetPlayerController() != nullptr) 
+		{
+			fout << " " << CompId::PlayerControllerId;
+		}
+		if (go.GetCollisionColorChanger() != nullptr)
+		{
+			fout << " " << CompId::ColorChangerId;
+		}
+		fout << std::endl;
+	}
+}
+
+
 void World::LoadLevel(std::string fileName)
 {
 	std::ifstream fin;
