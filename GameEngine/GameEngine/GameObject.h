@@ -32,6 +32,8 @@ public:
     Transform* GetTransform();
     RectangleRenderer* GetRenderer();
     RectangleCollider* GetCollider();
+    PlayerController* GetPlayerController();
+    CollisionColorChanger* GetCollisionColorChanger();
 
     void Update(EngineState* engine);
 

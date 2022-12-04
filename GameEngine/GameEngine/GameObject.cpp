@@ -101,6 +101,16 @@ RectangleCollider* GameObject::GetCollider()
     return collider;
 }
 
+PlayerController* GameObject::GetPlayerController()
+{
+    return player;
+}
+
+CollisionColorChanger* GameObject::GetCollisionColorChanger()
+{
+    return colorChanger;
+}
+
 void GameObject::Update(EngineState* engine)
 {
     if (player != nullptr)
