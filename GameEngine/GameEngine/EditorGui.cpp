@@ -1,6 +1,19 @@
 #include "EditorGui.h"
 #include "World.h"
-
+#include <sstream>
+std::string ConvertIntToString(int intValue)
+{
+	std::stringstream stringValue;
+	stringValue << intValue;
+	return stringValue.str();
+}int ConvertStringToInt(std::string stringValue)
+{
+	int intValue;
+	std::stringstream str;
+	str << stringValue;
+	str >> intValue;
+	return intValue;
+}
 EditorGui::EditorGui()
 {
 	
@@ -62,6 +75,9 @@ void EditorGui::DrawGui(World* world)
 	if (selectedObj != nullptr)
 	{
 		ImGui::Text(selectedObj->GetName().c_str());
+		ImGui::InputInt("X", &selectedObj->GetTransform()->position.x);
+		ImGui::InputInt("Y", &selectedObj->GetTransform()->position.y);
+
 		if (ImGui::BeginCombo("##Components", "Components"))
 		{
 			bool selected = false;
@@ -70,79 +86,122 @@ void EditorGui::DrawGui(World* world)
 			//player controller
 			if (selectedObj->GetPlayerController() != nullptr)
 			{
-				for (i = 0; i < world->numActivePlayerControllers; i++)
-				{
-					selected = (selectedComp == &world->playerControllers[i]);
+					selected = (selectedComp == selectedObj->GetPlayerController());
 
-					if (ImGui::Selectable("Player Controller", selected) && selectedObj->GetName() == world->playerControllers[i].owner->GetName())
+					if (ImGui::Selectable("Player Controller", selected) && selectedObj->GetName() == selectedObj->GetPlayerController()->owner->GetName())
 					{
-						selectedComp = &world->playerControllers[i];
+						selectedComp = selectedObj->GetPlayerController();
 						selectedCompName = "Player Controller";
 					}
 
 					if (selected)
 						ImGui::SetItemDefaultFocus();
+			}
+			else
+			{
+				if (ImGui::Selectable("Player Controller (+)", selected))
+				{
+					world->AddPlayerController(selectedObjIndex, PlayerController());
+					selectedComp = selectedObj->GetPlayerController();
+					selectedCompName = "PlayerConotrller";
 				}
+				if (selected)
+					ImGui::SetItemDefaultFocus();
 			}
 			
 			//renderers
 			if (selectedObj->GetRenderer() != nullptr)
 			{
-				for (i = 0; i < world->numActiveRectangleRenderers; i++)
-				{
-					selected = (selectedComp == &world->rectangleRenderers[i]);
+					selected = (selectedComp == selectedObj->GetRenderer());
 
-					if (ImGui::Selectable("Renderer", selected) && selectedObj->GetName() == world->rectangleRenderers[i].owner->GetName())
+					if (ImGui::Selectable("Renderer", selected) && selectedObj->GetName() == selectedObj->GetRenderer()->owner->GetName())
 					{
-						selectedComp = &world->rectangleRenderers[i];
+						selectedComp = selectedObj->GetRenderer();
 						selectedCompName = "Renderer";
 					}
 
 					if (selected)
 						ImGui::SetItemDefaultFocus();
+			}
+			else
+			{
+				if (ImGui::Selectable("Renderer (+)", selected))
+				{
+					world->AddRectangleRenderer(selectedObjIndex, RectangleRenderer());
+					selectedComp = selectedObj->GetRenderer();
+					selectedCompName = "Renderer";
 				}
+				if (selected)
+					ImGui::SetItemDefaultFocus();
 			}
 
 			//colliders
 			if (selectedObj->GetCollider() != nullptr)
 			{
-				for (i = 0; i < world->numActiveRectangleColliders; i++)
-				{
-					selected = (selectedComp == &world->rectangleColliders[i]);
+					selected = (selectedComp == selectedObj->GetCollider());
 
-					if (ImGui::Selectable("Collider", selected) && selectedObj->GetName() == world->rectangleColliders[i].owner->GetName())
+					if (ImGui::Selectable("Collider", selected) && selectedObj->GetName() == selectedObj->GetCollider()->owner->GetName())
 					{
-						selectedComp = &world->rectangleColliders[i];
+						selectedComp = selectedObj->GetCollider();
 						selectedCompName = "Collider";
 					}
 
 					if (selected)
 						ImGui::SetItemDefaultFocus();
+			}
+			else
+			{
+				if (ImGui::Selectable("Collider (+)", selected))
+				{
+					world->AddRectangleCollider(selectedObjIndex, RectangleCollider());
+					selectedComp = selectedObj->GetCollider();
+					selectedCompName = "Collider";
 				}
+				if (selected)
+					ImGui::SetItemDefaultFocus();
 			}
 
 			//color changers
 			if (selectedObj->GetCollisionColorChanger() != nullptr)
 			{
-				for (i = 0; i < world->numActiveColorChangers; i++)
+				selected = (selectedComp == selectedObj->GetCollisionColorChanger());
+
+				if (ImGui::Selectable("Color Changer", selected) && selectedObj->GetName() == selectedObj->GetCollisionColorChanger()->owner->GetName())
 				{
-					selected = (selectedComp == &world->collisionColorChangers[i]);
-
-					if (ImGui::Selectable("Color Changer", selected) && selectedObj->GetName() == world->collisionColorChangers[i].owner->GetName())
-					{
-						selectedComp = &world->collisionColorChangers[i];
-						selectedCompName = "Color Changer";
-					}
-
-					if (selected)
-						ImGui::SetItemDefaultFocus();
+					selectedComp = selectedObj->GetCollisionColorChanger();
+					selectedCompName = "Color Changer";
 				}
+
+				if (selected)
+					ImGui::SetItemDefaultFocus();
+			}
+			else
+			{
+				if (ImGui::Selectable("Color Changer (+)", selected))
+				{
+					world->AddCollisionColorChanger(selectedObjIndex, CollisionColorChanger());
+					selectedComp = selectedObj->GetCollisionColorChanger();
+					selectedCompName = "Color Changer";
+				}
+				if (selected)
+					ImGui::SetItemDefaultFocus();
 			}
 
 			ImGui::EndCombo();
 		}
 		ImGui::Text("Component");
 		ImGui::Text(selectedCompName.c_str());
+
+		//LOL
+		if (selectedCompName == "Renderer")
+		{
+			ImGui::InputInt("Width", &selectedObj->GetRenderer()->width);
+			ImGui::InputInt("Height", &selectedObj->GetRenderer()->height);
+
+			ImGui::InputInt("R", &selectedObj->GetRenderer()->originalColor.r);
+			ImGui::InputInt("G", &selectedObj->GetRenderer()->originalColor.g);
+			ImGui::InputInt("B", &selectedObj->GetRenderer()->originalColor.b);
+		}
 	}
 	else
 	{

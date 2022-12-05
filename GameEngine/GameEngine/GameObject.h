@@ -34,6 +34,7 @@ public:
     RectangleCollider* GetCollider();
     PlayerController* GetPlayerController();
     CollisionColorChanger* GetCollisionColorChanger();
+    void SetPosition(Vector2 vec);
 
     void Update(EngineState* engine);
 

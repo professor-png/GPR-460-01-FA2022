@@ -166,7 +166,10 @@ PlayerController* GameObject::CreatePlayerController(PlayerController* playerCon
     }
     return player;
 }
-
+void GameObject::SetPosition(Vector2 vec)
+{
+    transform.position = vec;
+}
 CollisionColorChanger* GameObject::CreateColliderColorChanger(CollisionColorChanger* colChanger)
 {
     if (colorChanger == nullptr)
