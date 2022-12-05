@@ -28,16 +28,8 @@ int main(int argc, char* argv[])
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
     EngineState engine;
+    engine.InitGui(window, renderer);
     system.GameStart();
-
-    EditorGui gui;
-    gui.InitGui(window, renderer);
-
-    for (int i = 0; i < 1000; i++)
-    {
-        gui.DrawGui();
-        SDL_RenderPresent(renderer);
-    }
 
     engine.quit = false;
     engine.renderer = renderer;
@@ -45,7 +37,6 @@ int main(int argc, char* argv[])
     engine.frameStart = GetTicks();
     engine.system = &system;
 
-    //CreateGameObjects(&engine);
     engine.world.LoadLevel("level0.dat");
 
     runMainLoop(&engine);
@@ -100,6 +91,8 @@ void frameStep(void* arg)
 
     while (SDL_PollEvent(&event))
     {
+        engine->PollGuiEvents(event);
+
         if (event.type == SDL_QUIT)
         {
             engine->quit = true;
