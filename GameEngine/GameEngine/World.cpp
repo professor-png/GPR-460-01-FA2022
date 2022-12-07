@@ -294,10 +294,12 @@ void World::ReadLine(std::istream& line)
 	line.ignore(100, '[');
 	line >> x >> y >> tmp;
 	GameObject* obj = LoadGameObject(name, Transform(Vector2(x, y)));
-
+	line >> id;
 	while (!line.eof())
 	{
-		line >> id;
+		//line >> id;
 		componentMap[id](this, obj, line);
+		//line.ignore('\n');
+		line >> id;
 	}
 }

@@ -14,8 +14,8 @@ void CreateGameObjects(EngineState* engine);
 
 int main(int argc, char* argv[])
 {
-    const int WIDTH = 640;
-    const int HEIGHT = 480;
+    const int WIDTH = 1280;
+    const int HEIGHT = 960;
     SDL_Window* window = NULL;
     SDL_Renderer* renderer = NULL;
 
@@ -38,11 +38,11 @@ int main(int argc, char* argv[])
     engine.system = &system;
 
     engine.world.LoadLevel("level0.dat");
-
+    
     runMainLoop(&engine);
 
     //save the game to a file.
-    engine.world.SaveLevel("levelSave.dat");
+    engine.world.SaveLevel("level0.dat");
 
     engine.world.ShutDown();
     engine.ShutDown();
