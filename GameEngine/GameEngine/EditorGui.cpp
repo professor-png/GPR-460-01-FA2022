@@ -73,10 +73,11 @@ void EditorGui::DrawGui(World* world)
 
 	if (selectedObj != nullptr)
 	{
-		ImGui::Text(selectedObj->GetName().c_str());
+		std::string buf = selectedObj->GetName();
+		ImGui::InputText("Selected Object:", (char*)buf.c_str(), sizeof(buf));
 		ImGui::InputInt("X", &selectedObj->GetTransform()->position.x);
 		ImGui::InputInt("Y", &selectedObj->GetTransform()->position.y);
-
+		selectedObj->SetName(buf);
 		if (ImGui::BeginCombo("##Components", "Components"))
 		{
 			bool selected = false;
@@ -227,7 +228,11 @@ void EditorGui::DrawGui(World* world)
 	}
 	else
 	{
-		ImGui::Text("");
+		if (ImGui::Button("Create GameObject"))
+		{
+			world->CreateGameObject("New_GameObject", Vector2(10,10));
+			selectedObj = &world->gameObjects[world->numActiveObjects - 1];
+		}
 	}
 
 	ImGui::End();
