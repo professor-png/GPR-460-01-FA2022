@@ -121,6 +121,41 @@ bool World::AddRectangleRenderer(int objIndex, RectangleRenderer renderer)
 	return true;
 }
 
+void World::DeleteGameObject(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < numActiveObjects; i++)
+	{
+		if (gameObjects[i].GetName() == name)
+		{
+			index = i;
+			break;
+		}
+	}
+	if (index == -1)
+	{
+		return;
+	}
+
+	if (gameObjects[index].GetCollider() != nullptr)
+		DeleteRectangleCollider(gameObjects[index].GetName());
+
+	if (gameObjects[index].GetRenderer() != nullptr)
+		DeleteRectangleRenderer(gameObjects[index].GetName());
+
+	if (gameObjects[index].GetPlayerController() != nullptr)
+		DeletePlayerController(gameObjects[index].GetName());
+
+	if (gameObjects[index].GetCollisionColorChanger() != nullptr)
+		DeleteColorChanger(gameObjects[index].GetName());
+
+	gameObjects[index].ShutDown();
+	for (int i = index; i < numActiveObjects; i++)
+	{
+		gameObjects[i] = gameObjects[i + 1];
+	}
+	numActiveObjects--;
+}
 
 void World::DeleteRectangleRenderer(std::string name) 
 {

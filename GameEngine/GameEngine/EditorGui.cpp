@@ -199,19 +199,21 @@ void EditorGui::DrawGui(World* world)
 			}
 			if (selectedCompName == "Collider")
 			{
-				world->DeleteRectangleRenderer(selectedObj->GetName());
+				world->DeleteRectangleCollider(selectedObj->GetName());
 				selectedObj->DeleteRectangleCollider();
 			}
 			if (selectedCompName == "Player Controller")
 			{
-				world->DeleteRectangleRenderer(selectedObj->GetName());
+				world->DeletePlayerController(selectedObj->GetName());
 				selectedObj->DeletePlayerController();
 			}
 			if (selectedCompName == "Color Changer")
 			{
-				world->DeleteRectangleRenderer(selectedObj->GetName());
+				world->DeleteColorChanger(selectedObj->GetName());
 				selectedObj->DeleteCollisionColorChanger();
 			}
+			selectedComp = nullptr;
+			selectedCompName = "";
 		}
 		//LOL
 		if (selectedCompName == "Renderer")
