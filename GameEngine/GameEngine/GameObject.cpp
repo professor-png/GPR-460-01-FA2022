@@ -179,3 +179,20 @@ CollisionColorChanger* GameObject::CreateColliderColorChanger(CollisionColorChan
     }
     return colorChanger;
 }
+
+void GameObject::DeleteRectangleRenderer()
+{
+    renderer = nullptr;
+}
+void GameObject::DeletePlayerController()
+{
+    player = nullptr;
+}
+void GameObject::DeleteRectangleCollider()
+{
+    collider = nullptr;
+}
+void GameObject::DeleteCollisionColorChanger()
+{
+    colorChanger = nullptr;
+}

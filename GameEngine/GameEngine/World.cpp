@@ -121,6 +121,100 @@ bool World::AddRectangleRenderer(int objIndex, RectangleRenderer renderer)
 	return true;
 }
 
+
+void World::DeleteRectangleRenderer(std::string name) 
+{
+	int index = -1;
+	for (int i = 0; i < numActiveRectangleRenderers; i++) 
+	{
+		if (rectangleRenderers[i].owner->GetName() == name) 
+		{
+			index = i;
+			break;
+		}
+	}
+	if (index == -1) 
+	{
+		return;
+	}
+	rectangleRenderers[index].ShutDown();
+	for (int i = index; i < numActiveRectangleRenderers; i++)
+	{
+		rectangleRenderers[i] = rectangleRenderers[i + 1];
+	}
+	numActiveRectangleRenderers--;
+}
+
+void World::DeleteRectangleCollider(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < numActiveRectangleColliders; i++)
+	{
+		if (rectangleColliders[i].owner->GetName() == name)
+		{
+			index = i;
+			break;
+		}
+	}
+	if (index == -1)
+	{
+		return;
+	}
+	rectangleColliders[index].ShutDown();
+	for (int i = index; i < numActiveRectangleColliders; i++)
+	{
+		rectangleColliders[i] = rectangleColliders[i + 1];
+	}
+	numActiveRectangleColliders--;
+}
+
+void World::DeletePlayerController(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < numActivePlayerControllers; i++)
+	{
+		if (playerControllers[i].owner->GetName() == name)
+		{
+			index = i;
+			break;
+		}
+	}
+	if (index == -1)
+	{
+		return;
+	}
+	playerControllers[index].ShutDown();
+	for (int i = index; i < numActivePlayerControllers; i++)
+	{
+		playerControllers[i] = playerControllers[i + 1];
+	}
+	numActivePlayerControllers--;
+}
+
+void World::DeleteColorChanger(std::string name)
+{
+	int index = -1;
+	for (int i = 0; i < numActiveColorChangers; i++)
+	{
+		if (collisionColorChangers[i].owner->GetName() == name)
+		{
+			index = i;
+			break;
+		}
+	}
+	if (index == -1)
+	{
+		return;
+	}
+	collisionColorChangers[index].ShutDown();
+	for (int i = index; i < numActiveColorChangers; i++)
+	{
+		collisionColorChangers[i] = collisionColorChangers[i + 1];
+	}
+	numActiveColorChangers--;
+}
+
+
 bool World::AddRectangleCollider(int objIndex, RectangleCollider collider)
 {
 	if (numActiveRectangleColliders == MAX_OBJECTS - 1)
@@ -235,13 +329,7 @@ void World::SaveLevel(std::string filename)
 		{
 			fout << " " << CompId::ColliderId;
 		}
-		if (go.GetRenderer() != nullptr)
-		{
-			fout << " " << CompId::RendererId;
-			fout << " [" << go.GetRenderer()->width << " " << go.GetRenderer()->height << "]";
-			fout << " [" << go.GetRenderer()->color.r << " " << go.GetRenderer()->color.g << " "
-				<< go.GetRenderer()->color.b << " " << go.GetRenderer()->color.a << "]";
-		}
+
 		if (go.GetPlayerController() != nullptr) 
 		{
 			fout << " " << CompId::PlayerControllerId;
@@ -250,7 +338,15 @@ void World::SaveLevel(std::string filename)
 		{
 			fout << " " << CompId::ColorChangerId;
 		}
+		if (go.GetRenderer() != nullptr)
+		{
+			fout << " " << CompId::RendererId;
+			fout << " [" << go.GetRenderer()->width << " " << go.GetRenderer()->height << "]";
+			fout << " [" << go.GetRenderer()->color.r << " " << go.GetRenderer()->color.g << " "
+				<< go.GetRenderer()->color.b << " " << go.GetRenderer()->color.a << "]";
+		}
 		fout << std::endl;
+
 	}
 }
 

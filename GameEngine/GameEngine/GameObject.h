@@ -38,6 +38,11 @@ public:
 
     void Update(EngineState* engine);
 
+    void DeleteRectangleRenderer();
+    void DeleteRectangleCollider();
+    void DeletePlayerController();
+    void DeleteCollisionColorChanger();
+
 protected:
     std::string name = "";
     Transform transform;

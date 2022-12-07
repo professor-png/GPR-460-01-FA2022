@@ -54,8 +54,7 @@ void RectangleRenderer::SetColor(Color col)
 
 bool RectangleRenderer::CheckCollisionPoint(int x, int y)
 {
-	return (owner->GetTransform()->position.x + owner->GetRenderer()->width / 2 < x &&
-		owner->GetTransform()->position.x - owner->GetRenderer()->width / 2 > x &&
-		owner->GetTransform()->position.y + owner->GetRenderer()->height / 2 < y &&
-		owner->GetRenderer()->height + owner->GetRenderer()->height / 2 > y);
+	Vector2 farCorner = Vector2(owner->GetTransform()->position.x - width, owner->GetTransform()->position.x - height);
+	return (owner->GetTransform()->position.x >= x && farCorner.x <= x &&
+		owner->GetTransform()->position.y >= y && farCorner.y <= y);
 }

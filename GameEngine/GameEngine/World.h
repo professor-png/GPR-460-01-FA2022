@@ -57,7 +57,10 @@ public:
 	static void AddRectangleRenderer(World* world, GameObject* go, std::istream& fin);
 	static void AddRectangleCollider(World* world, GameObject* go, std::istream& fin);
 	static void AddCollisionColorChanger(World* world, GameObject* go, std::istream& fin);
-
+	void DeleteRectangleRenderer(std::string name);
+	void DeleteRectangleCollider(std::string name);
+	void DeletePlayerController(std::string name);
+	void DeleteColorChanger(std::string name);
 
 	void LoadLevel(std::string fileName);
 	void ReadLine(std::istream& line);
