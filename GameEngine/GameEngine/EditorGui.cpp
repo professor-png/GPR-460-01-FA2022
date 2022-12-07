@@ -78,6 +78,17 @@ void EditorGui::DrawGui(World* world)
 		ImGui::InputInt("X", &selectedObj->GetTransform()->position.x);
 		ImGui::InputInt("Y", &selectedObj->GetTransform()->position.y);
 		selectedObj->SetName(buf);
+
+		if (ImGui::Button("Delete GameObject"))
+		{
+			world->DeleteGameObject(selectedObj->GetName());
+			selectedObj = nullptr;
+			selectedObjIndex = 0;
+
+			selectedComp = nullptr;
+			selectedCompName = "";
+		}
+
 		if (ImGui::BeginCombo("##Components", "Components"))
 		{
 			bool selected = false;
@@ -234,6 +245,7 @@ void EditorGui::DrawGui(World* world)
 		{
 			world->CreateGameObject("New_GameObject", Vector2(10,10));
 			selectedObj = &world->gameObjects[world->numActiveObjects - 1];
+			selectedObjIndex = world->numActiveObjects - 1;
 		}
 	}
 
