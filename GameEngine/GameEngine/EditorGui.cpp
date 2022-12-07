@@ -48,7 +48,25 @@ void EditorGui::DrawGui(World* world)
 	ImGui_ImplSDLRenderer_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
-
+	SDL_Event e;
+	while (SDL_PollEvent(&e))
+	{
+		if (e.type == SDL_MOUSEBUTTONDOWN)
+		{
+			if (e.button.button == SDL_BUTTON_LEFT) 
+			{
+				int x, y;
+				SDL_GetMouseState(&x, &y);
+				for (int i = 0; i < world->numActiveRectangleRenderers; i++)
+				{
+					if (world->rectangleRenderers[i].CheckCollisionPoint(x, y))
+					{
+						selectedObj = world->rectangleRenderers[i].owner;
+					}
+				}
+			}
+		}
+	}
 	//ImGui::SetCurrentContext(imGuiContext);
 	ImGui::Begin("Settings", nullptr);
 
@@ -202,6 +220,7 @@ void EditorGui::DrawGui(World* world)
 			ImGui::InputInt("G", &selectedObj->GetRenderer()->originalColor.g);
 			ImGui::InputInt("B", &selectedObj->GetRenderer()->originalColor.b);
 		}
+
 	}
 	else
 	{

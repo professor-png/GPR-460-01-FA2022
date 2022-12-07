@@ -12,7 +12,6 @@ class GameObject;
 class EditorGui
 {
 private:
-	GameObject* selectedObj = nullptr;
 	void* selectedComp = nullptr;
 	int selectedObjIndex = 0;
 	std::string selectedCompName = "";
@@ -20,6 +19,7 @@ private:
 public:
 	EditorGui();
 	~EditorGui();
+	GameObject* selectedObj = nullptr;
 
 	void ShutDown();
 	void InitGui(SDL_Window* window, SDL_Renderer* renderer);

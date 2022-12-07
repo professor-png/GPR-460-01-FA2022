@@ -51,3 +51,11 @@ void RectangleRenderer::SetColor(Color col)
 {
 	color = col;
 }
+
+bool RectangleRenderer::CheckCollisionPoint(int x, int y)
+{
+	return (owner->GetTransform()->position.x + owner->GetRenderer()->width / 2 < x &&
+		owner->GetTransform()->position.x - owner->GetRenderer()->width / 2 > x &&
+		owner->GetTransform()->position.y + owner->GetRenderer()->height / 2 < y &&
+		owner->GetRenderer()->height + owner->GetRenderer()->height / 2 > y);
+}

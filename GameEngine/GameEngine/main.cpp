@@ -106,6 +106,21 @@ void frameStep(void* arg)
                 std::cout << "Exit\n";
             }
         }
+        if (event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            if (event.button.button == SDL_BUTTON_LEFT)
+            {
+                int x, y;
+                SDL_GetMouseState(&x, &y);
+                for (int i = 0; i < engine->world.numActiveRectangleRenderers; i++)
+                {
+                    if (engine->world.rectangleRenderers[i].CheckCollisionPoint(x, y))
+                    {
+                        engine->gui.selectedObj = engine->world.rectangleRenderers[i].owner;
+                    }
+                }
+            }
+        }
     }
 
     SDL_SetRenderDrawColor(engine->renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);

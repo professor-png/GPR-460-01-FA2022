@@ -39,4 +39,5 @@ public:
 	void Draw(EngineState* engine);
 	static void Draw(RectangleRenderer* renderer, EngineState* engine);
 	void SetColor(Color col);
+	bool CheckCollisionPoint(int x, int y);
 };
