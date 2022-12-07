@@ -73,8 +73,9 @@ void EditorGui::DrawGui(World* world)
 
 	if (selectedObj != nullptr)
 	{
+		char size[255]{};
 		std::string buf = selectedObj->GetName();
-		ImGui::InputText("Selected Object:", (char*)buf.c_str(), sizeof(buf));
+		ImGui::InputText("Selected Object:", (char*)buf.c_str(), sizeof(size));
 		ImGui::InputInt("X", &selectedObj->GetTransform()->position.x);
 		ImGui::InputInt("Y", &selectedObj->GetTransform()->position.y);
 		selectedObj->SetName(buf);
@@ -223,6 +224,7 @@ void EditorGui::DrawGui(World* world)
 			ImGui::InputInt("R", &selectedObj->GetRenderer()->originalColor.r);
 			ImGui::InputInt("G", &selectedObj->GetRenderer()->originalColor.g);
 			ImGui::InputInt("B", &selectedObj->GetRenderer()->originalColor.b);
+			selectedObj->GetRenderer()->color = selectedObj->GetRenderer()->originalColor;
 		}
 
 	}
