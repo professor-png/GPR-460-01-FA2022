@@ -16,6 +16,8 @@ private:
 	int selectedObjIndex = 0;
 	std::string selectedCompName = "";
 
+	bool hasShutdown = true;
+
 public:
 	EditorGui();
 	~EditorGui();

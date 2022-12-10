@@ -9,7 +9,7 @@ EngineState::EngineState()
 
 EngineState::~EngineState()
 {
-    gui.ShutDown();
+    //gui.ShutDown();
     ShutDown();
 }
 
@@ -23,7 +23,7 @@ void EngineState::ShutDown()
     objectPool.clear();
     gameObjects.clear();
 
-    //gui.ShutDown();
+    gui.ShutDown();
 
     renderer = nullptr;
     system = nullptr;

@@ -16,28 +16,34 @@ std::string ConvertIntToString(int intValue)
 }
 EditorGui::EditorGui()
 {
-	
+
 }
 EditorGui::~EditorGui()
 {
 	ShutDown();
-	ImGui_ImplSDLRenderer_Shutdown();
+	/*ImGui_ImplSDLRenderer_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+	ImGui::DestroyContext();*/
 }
 
 void EditorGui::ShutDown()
 {
-	/*ImGui_ImplSDLRenderer_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();*/
+	if (hasShutdown == false)
+	{
+		hasShutdown = true;
+		ImGui_ImplSDLRenderer_Shutdown();
+		ImGui_ImplSDL2_Shutdown();
+		ImGui::DestroyContext();
 
-	selectedObj = nullptr;
-	selectedObjIndex = 0;
+		selectedObj = nullptr;
+		selectedObjIndex = 0;
+	}
 }
 
 void EditorGui::InitGui(SDL_Window* window, SDL_Renderer* renderer)
 {
+	hasShutdown = false;
+
 	ImGui::CreateContext();
 	ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer_Init(renderer);
