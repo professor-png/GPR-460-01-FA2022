@@ -150,7 +150,7 @@ void World::DeleteGameObject(std::string name)
 		DeleteColorChanger(gameObjects[index].GetName());
 
 	gameObjects[index].ShutDown();
-	for (int i = index; i < numActiveObjects; i++)
+	for (int i = index; i < numActiveObjects - 1; i++)
 	{
 		gameObjects[i] = gameObjects[i + 1];
 	}
@@ -176,6 +176,8 @@ void World::DeleteRectangleRenderer(std::string name)
 	for (int i = index; i < numActiveRectangleRenderers; i++)
 	{
 		rectangleRenderers[i] = rectangleRenderers[i + 1];
+		if (rectangleRenderers[i].owner != nullptr)
+			rectangleRenderers[i].owner->SetRenderer(&rectangleRenderers[i]);
 	}
 	numActiveRectangleRenderers--;
 }
@@ -199,6 +201,8 @@ void World::DeleteRectangleCollider(std::string name)
 	for (int i = index; i < numActiveRectangleColliders; i++)
 	{
 		rectangleColliders[i] = rectangleColliders[i + 1];
+		if (rectangleColliders[i].owner != nullptr)
+			rectangleColliders[i].owner->SetCollider(&rectangleColliders[i]);
 	}
 	numActiveRectangleColliders--;
 }
@@ -222,6 +226,8 @@ void World::DeletePlayerController(std::string name)
 	for (int i = index; i < numActivePlayerControllers; i++)
 	{
 		playerControllers[i] = playerControllers[i + 1];
+		if (playerControllers[i].owner != nullptr)
+			playerControllers[i].owner->SetPlayerController(&playerControllers[i]);
 	}
 	numActivePlayerControllers--;
 }
@@ -245,6 +251,8 @@ void World::DeleteColorChanger(std::string name)
 	for (int i = index; i < numActiveColorChangers; i++)
 	{
 		collisionColorChangers[i] = collisionColorChangers[i + 1];
+		if (collisionColorChangers[i].owner != nullptr)
+			collisionColorChangers[i].owner->SetColorChanger(&collisionColorChangers[i]);
 	}
 	numActiveColorChangers--;
 }

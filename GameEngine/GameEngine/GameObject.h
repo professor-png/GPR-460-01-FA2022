@@ -38,6 +38,11 @@ public:
 
     void Update(EngineState* engine);
 
+    void SetRenderer(RectangleRenderer* rend) { renderer = rend; }
+    void SetCollider(RectangleCollider* col) { collider = col; }
+    void SetPlayerController(PlayerController* control) { player = control; }
+    void SetColorChanger(CollisionColorChanger* changer) { colorChanger = changer; }
+
     void DeleteRectangleRenderer();
     void DeleteRectangleCollider();
     void DeletePlayerController();
