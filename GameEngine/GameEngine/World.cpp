@@ -153,6 +153,15 @@ void World::DeleteGameObject(std::string name)
 	for (int i = index; i < numActiveObjects - 1; i++)
 	{
 		gameObjects[i] = gameObjects[i + 1];
+
+		if (gameObjects[i].GetCollider() != nullptr)
+			gameObjects[i].GetCollider()->owner = &gameObjects[i];
+		if (gameObjects[i].GetCollisionColorChanger() != nullptr)
+			gameObjects[i].GetCollisionColorChanger()->owner = &gameObjects[i];
+		if (gameObjects[i].GetPlayerController() != nullptr)
+			gameObjects[i].GetPlayerController()->owner = &gameObjects[i];
+		if (gameObjects[i].GetRenderer() != nullptr)
+			gameObjects[i].GetRenderer()->owner = &gameObjects[i];
 	}
 	numActiveObjects--;
 }
